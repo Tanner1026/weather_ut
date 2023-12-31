@@ -1,0 +1,38 @@
+/* styles.css */
+.bg-custom-color {
+    background-color: #e6ecf6;
+  }
+
+.body-color {
+  background-color: #e2efef;
+}
+
+#precip_map { height: 300px;
+width: 300px;}
+
+#hum_map { height: 300px;
+  width: 300px;}
+  
+#vis_map { height: 300px;
+    width: 300px;}
+
+#pressure_map {
+  height: 300px;
+  width: 300px;
+}
+
+#ozone_map {
+  height: 300px;
+  width: 300px;
+}
+
+.bordered-div {
+  background-color: #f0f0f0;
+  /* Set border properties */
+  width: 300px;
+  border: 2px solid #333;
+  border-radius: 8px; /* Optional: Adds rounded corners */
+  padding: 10px; /* Optional: Adds padding inside the border */
+}
+
+

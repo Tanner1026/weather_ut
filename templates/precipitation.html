@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="bg-custom-color">
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center">
+      <div class="col-md-6 p-lg-5 mx-auto my-5">
+        <h1 class="display-3 fw-bold">Precipitation Data</h1>
+        <h3 class="fw-normal text-muted mb-3">Consolidated Western United States Precipitation Data</h3>
+        <div class="d-flex gap-3 justify-content-center lead fw-normal">
+          <a class="icon-link" href="{{ url_for('temp') }}">
+            Temperature/Wind
+          </a>
+          <a class="icon-link" href="{{ url_for('air_q') }}">
+            Air Quality
+          </a>
+        </div>
+      </div>
+      <div class="product-device shadow-sm d-none d-md-block"></div>
+      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+    </div>
+    <hr>
+  </div>
+</div>
+<div class="container mt-4">
+    <div class="row">
+      <!-- Single Grid Row for Each Image and Text -->
+      <div class="col-md-6 mb-4">
+        <h2>Cloud Base Height</h2>
+        <div>
+          <img src="../static/img/precipitation_maps/cloudBase.png" alt="Cloud Base Height" class="img-fluid" width="300px">
+        </div>
+        <img src="../static/img/legends/cloudBase_legend.png" width="300px" class="img-fluid">
+        <p>The current observed cloud base height in Salt Lake City, Utah is {{ cloudBase }} kilometers</p>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h2>Cloud Ceiling Height</h2>
+        <div>
+          <img src="../static/img/precipitation_maps/cloudCeiling.png" alt="Cloud Ceiling Height" class="img-fluid" width="300px">
+        </div>
+        <img src="../static/img/legends/cloudCeiling_legend.png" width="300px" class="img-fluid">
+        
+        <p>The current cloud ceiling height in Salt Lake City, Utah is {{ cloudCeiling }} kilometers</p>
+      </div>
+
+      <!-- Repeat the pattern for the remaining images and text -->
+      <div class="col-md-6 mb-4">
+        <h2>Visibility</h2>
+        <div id="vis_map">
+        </div>
+        <img src="../static/img/legends/visibility_legend.png" width="300px" class="img-fluid">
+        
+        <p>The current visibility in Salt Lake City, Utah is {{ visibility }} kilometers</p>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <h2>Precipitation Intensity</h2>
+        <div id="precip_map">
+        </div>
+        <img src="../static/img/legends/precipitation_legend.png" width="300px" class="img-fluid">
+        
+        <p>The current precipitation intensity in Salt Lake City, Utah is
+          <br>rain:{{ rain_intensity }} mm/hr
+          <br>sleet: {{ sleet_intensity }} mm/hr
+          <br>snow: {{ snow_intensity }} mm/hr
+          <br>and the probability of precipitation is {{ precip_probability }}</p>
+        
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <h2>Humidity</h2>
+        <div id="hum_map">
+        </div>
+        <img src="../static/img/legends/humidity_legend.png" class="img-fluid", width="300px">
+        
+        <p>The current humdity in Salt Lake City, Utah is {{ humidity }}%</p>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <h2>Surface Level Pressure</h2>
+        <div id="pressure_map">
+        </div>
+        <img src="../static/img/legends/pressure_legend.png" class="img-fluid" width="300px">
+        
+        <p>The current surface pressure in Salt Lake City, Utah is {{ pressure }} hPa</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
