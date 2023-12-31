@@ -1,0 +1,1 @@
+This project is designed to show advanced weather charts of Western United States air, precipitation and temperature data.  It is designed specifically for meteorology students to show advanced weather data and show movement of fronts and pressure zones.  All feedback is welcome as the site will continue development after publishing
