@@ -20,73 +20,85 @@
     <hr>
   </div>
   
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
       <div class="row">
         <!-- Single Grid Row for Each Image and Text -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-3 mb-4 spacer">
           <h2>PM 2.5 Data</h2>
           <div>
-            <img src="../static/img/air_q_maps/particulateMatter25.png" alt="Dew Point" class="img-fluid" width="300px">
+            <img src="../static/img/air_q_maps/particulateMatter25.png" alt="Dew Point" class="img-fluid map">
           </div>
-          <img src="../static/img/legends/pm25_legend.png" width="300px" class="img-fluid">
+          <img src="../static/img/legends/pm25_legend.png"class="img-fluid map">
+          
+        </div>
+        <div class="col-md-2 mb-4 d-flex text">
           {% if success == True %}
-            <p>The current observed dewpoint temperature in Salt Lake City, Utah is {{ dewpoint }} degrees Celsius</p>
+            <p>test</p>
           {% endif %}
         </div>
-        
-        <div class="col-md-6 mb-4">
+        <div class="col-md-3 mb-4">
           <h2>PM 10 Data</h2>
           <div>
-            <img src="../static/img/air_q_maps/particulateMatter10.png" alt="Temperature" class="img-fluid" width="300px">
+            <img src="../static/img/air_q_maps/particulateMatter10.png" alt="Temperature" class="img-fluid map">
           </div>
-          <img src="../static/img/legends/pm10_legend.png" width="300px" class="img-fluid">
+          <img src="../static/img/legends/pm10_legend.png" class="img-fluid map">
+          
+        </div>
+        <div class="col-md-2 mb-4 d-flex text">
           {% if success == True %}
             <p>The current True Temperature reading in Salt Lake City, Utah is {{ temp }} degrees Celsius</p>
           {% endif %}
         </div>
-  
-        <div class="col-md-6 mb-4">
+        <div class="col-md-3 mb-4 spacer">
             <h2>EPA AQI Index</h2>
             <div>
-              <img src="../static/img/air_q_maps/epaIndex.png" alt="Wind Speed" class="img-fluid" width="300px">
+              <img src="../static/img/air_q_maps/epaIndex.png" alt="Wind Speed" class="img-fluid map">
             </div>
-            <img src="../static/img/legends/epa_index_legend.png" class="img-fluid" width="300px">
-            {% if success == True %}
-              <p>The current wind speed in Salt Lake City, Utah is {{ wind_speed }} kph</p>
-            {% endif %}
+            <img src="../static/img/legends/epa_index_legend.png" class="img-fluid map">
         </div>
-  
-        <div class="col-md-6 mb-4">
+        <div class="col-md-2 mb-4 d-flex text">
+          {% if success == True %}
+            <p>The current wind speed in Salt Lake City, Utah is {{ wind_speed }} kph</p>
+          {% endif %}
+        </div>
+        <div class="col-md-3 mb-4">
           <h2>Nitrogen Dioxide Concentrations (NO2)</h2>
           <div>
-            <img src="../static/img/air_q_maps/pollutantNO2.png" alt="Wind Direction" class="img-fluid" width="300px">
+            <img src="../static/img/air_q_maps/pollutantNO2.png" alt="Wind Direction" class="img-fluid map">
           </div>
-          <img src="../static/img/legends/NO2_legend.png" width="300px" class="img-fluid">
+          <img src="../static/img/legends/NO2_legend.png" class="img-fluid map">
+          
+        </div>
+        <div class="col-md-2 mb-4 d-flex text">
           {% if success == True %}
             <p>The current Wind Direction in Salt Lake City, Utah is {{ wind_dir }} degrees</p>
           {% endif %}
         </div>
-  
-        <div class="col-md-6 mb-4">
+        <div class="col-md-3 mb-4 spacer">
           <h2>Carbon Monoxide Concentrations (CO)</h2>
           <div>
-            <img src="../static/img/air_q_maps/pollutantCO.png" alt="Wind Gust" class="img-fluid" width="300px">
+            <img src="../static/img/air_q_maps/pollutantCO.png" alt="Wind Gust" class="img-fluid map">
           </div>
-          <img src="../static/img/legends/CO_legend.png" class="img-fluid floating", width="300px">
+          <img src="../static/img/legends/CO_legend.png" class="img-fluid map">
+          
+        </div>
+        <div class="col-md-2 mb-4 d-flex text">
           {% if success == True %}
             <p>The current Wind Gust in Salt Lake City, Utah is {{ wind_gust }} kph</p>
           {% endif %}
         </div>
-  
         
 
           <!-- Repeat the pattern for the remaining images and text -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-3 mb-4">
             <h2>Ozone Concentrations (O3)</h2>
             <div>
-              <img src="../static/img/air_q_maps/pollutantO3.png" alt="Temperature" class="img-fluid" width="300px">
+              <img src="../static/img/air_q_maps/pollutantO3.png" alt="Temperature" class="img-fluid map">
             </div>
-            <img src="../static/img/legends/ozone_legend.png" width="300px" class="img-fluid">
+            <img src="../static/img/legends/ozone_legend.png"class="img-fluid map">
+            
+          </div>
+          <div class="col-md-2 mb-4 d-flex text">
             {% if success == True %}
               <p>The current Apparent Temperature in Salt Lake City, Utah is {{ temp_app }} degrees Celsius</p>
             {% endif %}

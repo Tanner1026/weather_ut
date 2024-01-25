@@ -20,71 +20,84 @@
   <hr>
 </div>
 
-  <div class="container mt-4">
+  <div class="container-fluid mt-4">
     <div class="row">
       <!-- Single Grid Row for Each Image and Text -->
-      <div class="col-md-6 mb-4">
+      <div class="col-md-3 mb-4 spacer">
         <h2>Dew Point Temperature</h2>
         <div>
-          <img src="../static/img/temp_wind_maps/dewPoint.png" alt="Dew Point" class="img-fluid" width="300px">
+          <img src="../static/img/temp_wind_maps/dewPoint.png" alt="Dew Point" class="img-fluid map">
         </div>
-        <img src="../static/img/legends/temperature_legend.png" width="300px" class="img-fluid">
+        <img src="../static/img/legends/temperature_legend.png" class="img-fluid map">
+        
+      </div>
+      <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
           <p>The current observed dewpoint temperature in Salt Lake City, Utah is {{ dewpoint }} degrees Celsius</p>
         {% endif %}
       </div>
-      
-      <div class="col-md-6 mb-4">
+      <div class="col-md-3 mb-4">
         <h2>True Temperature</h2>
         <div>
-          <img src="../static/img/temp_wind_maps/temperature.png" alt="Temperature" class="img-fluid" width="300px">
+          <img src="../static/img/temp_wind_maps/temperature.png" alt="Temperature" class="img-fluid map">
         </div>
-        <img src="../static/img/legends/temperature_legend.png" width="300px" class="img-fluid">
+        <img src="../static/img/legends/temperature_legend.png" class="img-fluid map">
+        
+      </div>
+      <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
           <p>The current True Temperature reading in Salt Lake City, Utah is {{ temp }} degrees Celsius</p>
         {% endif %}
       </div>
-
       <!-- Repeat the pattern for the remaining images and text -->
-      <div class="col-md-6 mb-4">
+      <div class="col-md-3 mb-4 spacer">
         <h2>Apparent Temperature</h2>
         <div>
-          <img src="../static/img/temp_wind_maps/temperatureApparent.png" alt="Temperature" class="img-fluid" width="300px">
+          <img src="../static/img/temp_wind_maps/temperatureApparent.png" alt="Temperature" class="img-fluid map">
         </div>
-        <img src="../static/img/legends/temperature_legend.png" width="300px" class="img-fluid">
+        <img src="../static/img/legends/temperature_legend.png" class="img-fluid map">
+        
+      </div>
+      <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
           <p>The current Apparent Temperature in Salt Lake City, Utah is {{ temp_app }} degrees Celsius</p>
         {% endif %}
       </div>
-
-      <div class="col-md-6 mb-4">
+      <div class="col-md-3 mb-4">
         <h2>Wind Direction</h2>
         <div>
-          <img src="../static/img/temp_wind_maps/windDirection.png" alt="Wind Direction" class="img-fluid" width="300px">
+          <img src="../static/img/temp_wind_maps/windDirection.png" alt="Wind Direction" class="img-fluid map">
         </div>
-        <img src="../static/img/legends/wind_direction_legend.png" width="300px" class="img-fluid">
+        <img src="../static/img/legends/wind_direction_legend.png"class="img-fluid map">
+        
+      </div>
+      <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
           <p>The current Wind Direction in Salt Lake City, Utah is {{ wind_dir }} degrees</p>
         {% endif %}
       </div>
-
-      <div class="col-md-6 mb-4">
+      <div class="col-md-3 mb-4 spacer">
         <h2>Wind Gust</h2>
         <div>
-          <img src="../static/img/temp_wind_maps/windGust.png" alt="Wind Gust" class="img-fluid floating" width="300px">
+          <img src="../static/img/temp_wind_maps/windGust.png" alt="Wind Gust" class="img-fluid map">
         </div>
-        <img src="../static/img/legends/wind_legend.png" class="img-fluid floating", width="300px">
+        <img src="../static/img/legends/wind_legend.png" class="img-fluid map">
+        
+      </div>
+      <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
           <p>The current Wind Gust in Salt Lake City, Utah is {{ wind_gust }} kph</p>
         {% endif %}
       </div>
-
-      <div class="col-md-6 mb-4">
+      <div class="col-md-3 mb-4">
         <h2>Wind Speed</h2>
         <div>
-          <img src="../static/img/temp_wind_maps/windSpeed.png" alt="Wind Speed" class="img-fluid" width="300px">
+          <img src="../static/img/temp_wind_maps/windSpeed.png" alt="Wind Speed" class="img-fluid map">
         </div>
-        <img src="../static/img/legends/wind_legend.png" class="img-fluid" width="300px">
+        <img src="../static/img/legends/wind_legend.png" class="img-fluid map">
+        
+      </div>
+      <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
           <p>The current wind speed in Salt Lake City, Utah is {{ wind_speed }} kph</p>
         {% endif %}

@@ -72,7 +72,8 @@ def precip():
     
 @app.route('/air_quality')
 def air_q():
-    return render_template('air_quality.html')
+    success = True
+    return render_template('air_quality.html', success = success)
 
 @app.route('/contact-me', methods=['POST', 'GET'])
 def contact():
@@ -90,10 +91,16 @@ def contact():
 def thank_you():
     return render_template('thank-you.html')
 
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
 def send_email(contents, sender_email): 
     with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
         connection.starttls()
         connection.login(os.getenv('ADMIN_EMAIL'), os.getenv('APP_PASSWORD'))
         connection.sendmail(from_addr=sender_email, to_addrs=os.getenv('ADMIN_EMAIL'), msg=contents)
+
+
 
 app.run(debug=True)
