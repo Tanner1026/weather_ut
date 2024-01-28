@@ -31,7 +31,12 @@
         <img src="../static/img/legends/cloudBase_legend.png" class="img-fluid map">
       </div>
       <div class="col-md-2 mb-4 d-flex text">
-        <p>The current observed cloud base height in Salt Lake City, Utah is {{ cloudBase }} kilometers</p>
+        <p><b>Cloud Base Height</b> is an important measurement for meteorology because it helps us determine the vertical profile of clouds and by 
+          association, an estimate of energy exchange between clouds and the surface.  This is a pivotal part of forecasting, especially for pilots
+          and weather models.
+          <br>
+          <br> 
+          The current observed cloud base height in Salt Lake City, Utah is {{ cloudBase }} kilometers</p>
       </div>
       <div class="col-md-3 mb-4">
         <h2>Cloud Ceiling Height</h2>
@@ -41,7 +46,11 @@
         <img src="../static/img/legends/cloudCeiling_legend.png" class="img-fluid map">
       </div>
       <div class="col-md-2 mb-4 d-flex text">
-        <p>The current cloud ceiling height in Salt Lake City, Utah is {{ cloudCeiling }} kilometers</p>
+        <p><b>Cloud Ceiling Height</b> in conjunction whith Cloud Base Height helps us further understand a clouds vertical profile.  This can help us understand the type of
+           cloud, thundercloud potential and its effects on the atmospheric system.  In addition, this is also a key piece of information for aviation and weather models.
+           <br>
+           <br>
+          The current cloud ceiling height in Salt Lake City, Utah is {{ cloudCeiling }} kilometers</p>
       </div>
       
       <!-- Repeat the pattern for the remaining images and text -->
@@ -50,25 +59,32 @@
         <div id="vis_map">
         </div>
         <img src="../static/img/legends/visibility_legend.png" class="img-fluid map">
-        
-        
       </div>
       <div class="col-md-2 mb-4 d-flex text">
-        <p>The current visibility in Salt Lake City, Utah is {{ visibility }} kilometers</p>
+        <p><b>Visibility</b> is defined as the horizontal opacity of the atmosphere at the point the observation is made.  This is an important measurement in 
+          regards to safety.  It helps people make informed decisions as to travel and the conditions they would have to endure.
+          <br>
+          <br>
+          The current visibility in Salt Lake City, Utah is {{ visibility }} kilometers</p>
       </div>
       <div class="col-md-3 mb-4">
         <h2>Precipitation Intensity</h2>
         <div id="precip_map">
         </div>
         <img src="../static/img/legends/precipitation_legend.png" class="img-fluid map">
-        
-        
-        
       </div>
         
       <div class="col-md-2 mb-4 d-flex text">
-        <p>The current precipitation intensity in Salt Lake City, Utah is
-          <br>rain:{{ rain_intensity }} mm/hr
+        <p><b>Precipitation Intensity</b> itself is self explanatory.  But what isn't, is the atmospheric conditions that leads to different precipitation types.
+          For <b>frozen rain</b> to occur we must see an atmospheric profile in which temperatures are below freezing until the precipitation reaches close to the surface at which point
+          the temperature is above freezing and the ice droplet melts, but before reaching the ground, freezes again in a below freezing layer. 
+          <b>Snow</b> on the other hand, must have consistently below freezing temperatures in its entire path to remain snow.
+          <b>Sleet</b>, much like frozen rain, starts below freezing but then encoutners a warming layer higher in the atmosphere than frozen rain.  It then falls through a thicker freezing
+          layer again higher in the atmosphere and falls as sleet
+          <br>
+          <br>
+          The current precipitation intensity in Salt Lake City, Utah is
+          <br>rain: {{ rain_intensity }} mm/hr
           <br>sleet: {{ sleet_intensity }} mm/hr
           <br>snow: {{ snow_intensity }} mm/hr
           <br>and the probability of precipitation is {{ precip_probability }}%</p>
@@ -80,7 +96,12 @@
         <img src="../static/img/legends/humidity_legend.png" class="img-fluid map">
       </div>
       <div class="col-md-2 mb-4 d-flex text">
-        <p>The current humdity in Salt Lake City, Utah is {{ humidity }}%</p>
+        <p><b>Humidity</b> is often confused with Dewpoint temperature in the sense that many people believe they are measuring the same thing.  This is almost the case.
+          Humidity as opposed to Dewpoint temperature, is not an absolute measurement but rather,  a percentage that informs us of the amount of water vapor in the air.
+          This measurement tells us how close the air is to saturation.
+          <br>
+          <br>
+          The current humdity in Salt Lake City, Utah is {{ humidity }}%</p>
       </div>
       <div class="col-md-3 mb-4">
         <h2>Surface Level Pressure</h2>
@@ -91,7 +112,13 @@
         
       </div>
       <div class="col-md-2 mb-4 d-flex text">
-        <p>The current surface pressure in Salt Lake City, Utah is {{ pressure }} hPa</p>
+        <p><b>Surface Pressure</b> is a measurement of the atmospheric pressure at the surface.  This will vary based on geography due to elevation factors.
+          Pressure is often used to predict weather patterns because significant shifts in atmospheric pressure can be indicators of different weather types.
+          For example, pressure lines that are closer together typically indicate higher winds.  Sharp decreases in pressure can also indicate inclement weather.
+          It is important to note that while these are typical patters, they are not absolutes.
+          <br>
+          <br>
+          The current surface pressure in Salt Lake City, Utah is {{ pressure }} hPa</p>
       </div>
     </div>
   </div>

@@ -33,11 +33,14 @@
       </div>
       <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
-          <p>The current observed dewpoint temperature in Salt Lake City, Utah is {{ dewpoint }} degrees Celsius</p>
+          <p><b>Dewpoint Temperature</b> is defined as the temperature to which the actual air temperature would have to be decreased to in order for the air to reach saturation. 
+            <br>
+            <br>
+            The current observed dewpoint temperature in Salt Lake City, Utah is {{ dewpoint }} degrees Celsius</p>
         {% endif %}
       </div>
       <div class="col-md-3 mb-4">
-        <h2>True Temperature</h2>
+        <h2>Temperature</h2>
         <div>
           <img src="../static/img/temp_wind_maps/temperature.png" alt="Temperature" class="img-fluid map">
         </div>
@@ -46,7 +49,7 @@
       </div>
       <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
-          <p>The current True Temperature reading in Salt Lake City, Utah is {{ temp }} degrees Celsius</p>
+          <p>The current Temperature reading in Salt Lake City, Utah is {{ temp }} degrees Celsius</p>
         {% endif %}
       </div>
       <!-- Repeat the pattern for the remaining images and text -->
@@ -60,7 +63,10 @@
       </div>
       <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
-          <p>The current Apparent Temperature in Salt Lake City, Utah is {{ temp_app }} degrees Celsius</p>
+          <p><b>Apparent Temperature</b> is defined as the the temperature that we perceive as humans.  This definition takes into account wind chill, humidity, heat index etc.
+            <br>
+            <br>
+            The current Apparent Temperature in Salt Lake City, Utah is {{ temp_app }} degrees Celsius</p>
         {% endif %}
       </div>
       <div class="col-md-3 mb-4">
@@ -73,7 +79,14 @@
       </div>
       <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
-          <p>The current Wind Direction in Salt Lake City, Utah is {{ wind_dir }} degrees</p>
+          <p><b>Wind Direction</b> in Meteorology is defined by the direction that the wind is coming from, rather than the direction it is heading.
+            For example, winds that are blowing towards the North would be defined as Southern winds.  In addition, when describing winds in degrees, the
+            Meteorological compass follows a different degree path than traditional mathematics.  In the Meteorological wind rose, North is 0 or 360 degrees and the 
+            rose increases in the clockwise as opposed to the conventional counterclockwise. However we still describe the wind from where it would be coming from 
+            so in this case, winds blowing towards the north would be 180 degree wind.
+            <br>
+            <br>
+            The current Wind Direction in Salt Lake City, Utah is {{ wind_dir }} degrees</p>
         {% endif %}
       </div>
       <div class="col-md-3 mb-4 spacer">
@@ -86,7 +99,11 @@
       </div>
       <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
-          <p>The current Wind Gust in Salt Lake City, Utah is {{ wind_gust }} kph</p>
+          <p><b>Wind Gust</b> is defined as short, but quick increase in wind speeds.  These are typically reported when peak wind speed reaches 16 knots and 
+            the difference between the peaks and lulls of wind speed is about 9 knots.
+            <br>
+            <br>
+            The current Wind Gust in Salt Lake City, Utah is {{ wind_gust }} kph</p>
         {% endif %}
       </div>
       <div class="col-md-3 mb-4">

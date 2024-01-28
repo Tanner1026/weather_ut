@@ -32,9 +32,11 @@
           
         </div>
         <div class="col-md-2 mb-4 d-flex text">
-          {% if success == True %}
-            <p>test</p>
-          {% endif %}
+            <p><b>PM 2.5</b> are particles in the air that measure 2.5 microns in diameter.  We measure for these specifically because they are the particle types
+                  that can penetrate past your nose or throat into your lungs and cause damage to them.  The EPA has regulations in place to monitor PM 2.5 measurements.
+                  In order to be in attainment, the Annual PM 2.5 average in an area must be 12 micrograms per meter cubed.  In a 24 hour span this number must be below 35 micrograms per meter cubed.
+                  PM 2.5 has been linked to cardiovascular and respiratory problems.
+            </p>
         </div>
         <div class="col-md-3 mb-4">
           <h2>PM 10 Data</h2>
@@ -45,9 +47,9 @@
           
         </div>
         <div class="col-md-2 mb-4 d-flex text">
-          {% if success == True %}
-            <p>The current True Temperature reading in Salt Lake City, Utah is {{ temp }} degrees Celsius</p>
-          {% endif %}
+            <p><b>PM 10</b> is a class of particulate matter in which the diameter of the particle is 10 microns in diameter.  These particles typically do not penetrate 
+              deep into your lungs but do end up in your nose and throat and cause respiratory issues.  PM 10 is typically less measured than PM 2.5 with less stations monitoring the activity.
+            </p>
         </div>
         <div class="col-md-3 mb-4 spacer">
             <h2>EPA AQI Index</h2>
@@ -57,9 +59,15 @@
             <img src="../static/img/legends/epa_index_legend.png" class="img-fluid map">
         </div>
         <div class="col-md-2 mb-4 d-flex text">
-          {% if success == True %}
-            <p>The current wind speed in Salt Lake City, Utah is {{ wind_speed }} kph</p>
-          {% endif %}
+            <p><b>AQI</b> is the EPA measurement of Air Quality.  This is divided typically into 6 categories. These are:
+              <br><b>Good:</b> AQI values ranging from 0 to 50
+              <br><b>Moderate:</b> AQI values ranging from 51 to 100
+              <br><b>Unhealthy for Sensitive Groups:</b> AQI values ranging from 101 to 150
+              <br><b>Unhealthy:</b> AQI values ranging from 151 to 200
+              <br><b>Very Unhealthy:</b> AQI values ranging from 201 to 300
+              <br><b>Hazardous</b> AQI values 301 and higher
+              <br>This data is typically a conglomerate measurement of <b>Ground-Level Ozone, PM 2.5 and PM 10, Carbon Monoxide, Sulfur Dioxide, Nitrogen Dioxide</b>
+            </p>
         </div>
         <div class="col-md-3 mb-4">
           <h2>Nitrogen Dioxide Concentrations (NO2)</h2>
@@ -70,9 +78,12 @@
           
         </div>
         <div class="col-md-2 mb-4 d-flex text">
-          {% if success == True %}
-            <p>The current Wind Direction in Salt Lake City, Utah is {{ wind_dir }} degrees</p>
-          {% endif %}
+            <p><b>Nitrogen Dioxide</b> is a common type of pollutant in the atmosphere.  We typically refer to Nitrogen pollutants as NOX because it can take the 
+                  form of NO (Nitric Oxide) or NO2 (Nitrogen Dioxide).  Nitrogen is a key component in many of the chemical reactions in the atmosphere with Volatile Organic Compounds (VOCs)
+                  that create pollutants such as ozone.  In addition, an excess of Nitrogen in the bloodstream can lead to suffocation, as it replaces Oxygen particles.  This is most apparent in babies
+                  and leads to things such as blue baby syndrome
+            </p>
+
         </div>
         <div class="col-md-3 mb-4 spacer">
           <h2>Carbon Monoxide Concentrations (CO)</h2>
@@ -83,9 +94,10 @@
           
         </div>
         <div class="col-md-2 mb-4 d-flex text">
-          {% if success == True %}
-            <p>The current Wind Gust in Salt Lake City, Utah is {{ wind_gust }} kph</p>
-          {% endif %}
+            <p><b>Carbon Monoxide</b> much like NOX is a commonly emitted primary pollutant that is emitted from combustion reactions.  This can be from cars, power plants,
+                  fires, etc.  Carbon monoxide also reacts with VOCs to create ozone and other pollutants in the atmosphere.  It is also a key component of CO2 (Carbon Dioxide),
+                  the common greenhouse gas.  Carbon Monoxide is very unhealthy as it restricts oxygen flow and is very dangerous for humans to inhale a lot of.  This is why
+                  we have CO detectors in our households.</p>
         </div>
         
 
@@ -100,7 +112,9 @@
           </div>
           <div class="col-md-2 mb-4 d-flex text">
             {% if success == True %}
-              <p>The current Apparent Temperature in Salt Lake City, Utah is {{ temp_app }} degrees Celsius</p>
+              <p><b>Ozone</b> is a secondary pollutant (meaning it is formed from other pollutants).  Ozone is very helpful when it is in the upper atmosphere, as it helps
+                  reflect dangerous shortwave radiation.  However within the lower atmosphere, Ozone is very dangerous for humans to inhale.  The formation of ozone is very quick
+                  and it breaks apart quickly as well.  It can do this within your lungs several times and cause damage to your respiratory system.</p>
             {% endif %}
           </div>
         </div>
