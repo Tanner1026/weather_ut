@@ -130,7 +130,7 @@ def send_email(contents, sender_email):
 
 
 
-app.run(debug=True)
+app.run(host="0.0.0.0")
 
 while True:
     schedule.run_pending()
