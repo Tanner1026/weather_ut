@@ -23,7 +23,7 @@
   <div class="container-fluid mt-4">
     <div class="row">
       <!-- Single Grid Row for Each Image and Text -->
-      <div class="col-md-3 mb-4 spacer">
+      <div class="col-md-3 mb-4 spacer d-flex">
         <h2>Dew Point Temperature</h2>
         <div>
           <img src="../static/img/temp_wind_maps/dewPoint.png" alt="Dew Point" class="img-fluid map">
@@ -39,7 +39,7 @@
             The current observed dewpoint temperature in Salt Lake City, Utah is {{ dewpoint }} degrees Celsius</p>
         {% endif %}
       </div>
-      <div class="col-md-3 mb-4">
+      <div class="col-md-3 mb-4 d-flex centered">
         <h2>Temperature</h2>
         <div>
           <img src="../static/img/temp_wind_maps/temperature.png" alt="Temperature" class="img-fluid map">
@@ -53,7 +53,7 @@
         {% endif %}
       </div>
       <!-- Repeat the pattern for the remaining images and text -->
-      <div class="col-md-3 mb-4 spacer">
+      <div class="col-md-3 mb-4 d-flex spacer">
         <h2>Apparent Temperature</h2>
         <div>
           <img src="../static/img/temp_wind_maps/temperatureApparent.png" alt="Temperature" class="img-fluid map">
@@ -69,7 +69,7 @@
             The current Apparent Temperature in Salt Lake City, Utah is {{ temp_app }} degrees Celsius</p>
         {% endif %}
       </div>
-      <div class="col-md-3 mb-4">
+      <div class="col-md-3 mb-4 d-flex centered">
         <h2>Wind Direction</h2>
         <div>
           <img src="../static/img/temp_wind_maps/windDirection.png" alt="Wind Direction" class="img-fluid map">
@@ -89,7 +89,7 @@
             The current Wind Direction in Salt Lake City, Utah is {{ wind_dir }} degrees</p>
         {% endif %}
       </div>
-      <div class="col-md-3 mb-4 spacer">
+      <div class="col-md-3 mb-4 d-flex spacer">
         <h2>Wind Gust</h2>
         <div>
           <img src="../static/img/temp_wind_maps/windGust.png" alt="Wind Gust" class="img-fluid map">
@@ -106,7 +106,7 @@
             The current Wind Gust in Salt Lake City, Utah is {{ wind_gust }} kph</p>
         {% endif %}
       </div>
-      <div class="col-md-3 mb-4">
+      <div class="col-md-3 mb-4 d-flex centered">
         <h2>Wind Speed</h2>
         <div>
           <img src="../static/img/temp_wind_maps/windSpeed.png" alt="Wind Speed" class="img-fluid map">

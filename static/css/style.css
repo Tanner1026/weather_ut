@@ -1,26 +1,25 @@
 /* styles.css */
 .bg-custom-color {
-    background-color: #e6ecf6;
+    background-color: #D4E7C5;
   }
-
+  
 .body-color {
-  background-color: #e2efef;
+  background-color: #E1F0DA;
 }
 
-#precip_map { height: 600px;
+#precip_map { height: 500px;
 width: 600px;}
 
-#hum_map { height: 600px;
+#hum_map { height: 500px;
   width: 600px;}
   
-#vis_map { height: 600px;
+#vis_map { height: 500px;
     width: 600px;}
 
 #pressure_map {
-  height: 600px;
+  height: 500px;
   width: 600px;
 }
-
 
 .form{
   padding-top: 100px;
@@ -36,14 +35,39 @@ width: 600px;}
 .text{
   align-items: center;
   text-align: center;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
 .map{
-  width: 600px
+  width: 600px;
+  text-align: center;
+  border-radius: 5%;
 }
 
 .spacer{
-  margin-left: 300px;
-  align-items: center;
+  margin-left: 10vw;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-self: center;
+}
+
+.centered{
+  flex-wrap: wrap;
+  justify-content: center;
+  align-self: center;
+}
+
+@media (max-width: 1200px) {
+  .text{
+    display: block;
+  }
+
+  .map{
+    display: block;
+    align-items: center;
+  }
+  .spacer{
+    margin-left: 0px;
+  }
 }

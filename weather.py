@@ -48,8 +48,8 @@ def api_execute():
             connection.login(os.getenv('ADMIN_EMAIL'), os.getenv('APP_PASSWORD'))
             connection.sendmail(from_addr=os.getenv('ADMIN_EMAIL'), to_addrs=os.getenv('ADMIN_EMAIL'), msg="Subject: Weather application API failure\n\nThe website failed to call the API")
 
-# schedule.every(1).hour.do(api_execute)
-api_execute()
+schedule.every(1).hour.do(api_execute)
+
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
@@ -75,7 +75,7 @@ def precip():
     try:
         with open("weather_data.json", "r") as file:
             weather_path = json.load(file)
-            return render_template('precipitation.html', cloudBase = weather_path['cloudBase'], cloudCeiling = weather_path['cloudCeiling'], visibility= weather_path['visibility'], precip_probability= weather_path['precipitationProbability'], humidity= weather_path['humidity'], pressure=weather_path['pressureSurfaceLevel'], rain_intensity= weather_path['rainIntensity'], sleet_intensity = weather_path['sleetIntensity'], snow_intensity=weather_path['snowIntensity'], success=True)
+            return render_template('precipitation.html', cloudBase = weather_path['cloudBase'], cloudCeiling = weather_path['cloudCeiling'], visibility= weather_path['visibility'], precip_probability= weather_path['precipitationProbability'], humidity= weather_path['humidity'], pressure=weather_path['pressureSurfaceLevel'], rain_intensity= weather_path['rainIntensity'], sleet_intensity = weather_path['sleetIntensity'], snow_intensity=weather_path['snowIntensity'], success=True, api_key = os.getenv('API_KEY'))
     except:
         return render_template('precipitation.html', success=False)
 

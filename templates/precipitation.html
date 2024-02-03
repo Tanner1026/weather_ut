@@ -23,7 +23,7 @@
 <div class="container-fluid mt-4">
     <div class="row">
       <!-- Single Grid Row for Each Image and Text -->
-      <div class="col-md-3 mb-4 spacer">
+      <div class="col-md-3 mb-4 d-flex spacer">
         <h2>Cloud Base Height</h2>
         <div>
           <img src="../static/img/precipitation_maps/cloudBase.png" alt="Cloud Base Height" class="img-fluid map" width="500px">
@@ -38,7 +38,7 @@
           <br> 
           The current observed cloud base height in Salt Lake City, Utah is {{ cloudBase }} kilometers</p>
       </div>
-      <div class="col-md-3 mb-4">
+      <div class="col-md-3 mb-4 d-flex centered">
         <h2>Cloud Ceiling Height</h2>
         <div>
           <img src="../static/img/precipitation_maps/cloudCeiling.png" alt="Cloud Ceiling Height" class="img-fluid map">
@@ -54,9 +54,9 @@
       </div>
       
       <!-- Repeat the pattern for the remaining images and text -->
-      <div class="col-md-3 mb-4 spacer">
+      <div class="col-md-3 mb-4 d-flex spacer">
         <h2>Visibility</h2>
-        <div id="vis_map">
+        <div id="vis_map" class="img-fluid">
         </div>
         <img src="../static/img/legends/visibility_legend.png" class="img-fluid map">
       </div>
@@ -67,9 +67,9 @@
           <br>
           The current visibility in Salt Lake City, Utah is {{ visibility }} kilometers</p>
       </div>
-      <div class="col-md-3 mb-4">
+      <div class="col-md-3 mb-4 d-flex centered">
         <h2>Precipitation Intensity</h2>
-        <div id="precip_map">
+        <div id="precip_map" class="img-fluid">
         </div>
         <img src="../static/img/legends/precipitation_legend.png" class="img-fluid map">
       </div>
@@ -89,9 +89,9 @@
           <br>snow: {{ snow_intensity }} mm/hr
           <br>and the probability of precipitation is {{ precip_probability }}%</p>
       </div>
-      <div class="col-md-3 mb-4 spacer">
+      <div class="col-md-3 mb-4 d-flex spacer">
         <h2>Humidity</h2>
-        <div id="hum_map">
+        <div id="hum_map" class="img-fluid">
         </div>
         <img src="../static/img/legends/humidity_legend.png" class="img-fluid map">
       </div>
@@ -103,9 +103,9 @@
           <br>
           The current humdity in Salt Lake City, Utah is {{ humidity }}%</p>
       </div>
-      <div class="col-md-3 mb-4">
+      <div class="col-md-3 mb-4 d-flex centered">
         <h2>Surface Level Pressure</h2>
-        <div id="pressure_map">
+        <div id="pressure_map" class="img-fluid">
         </div>
         <img src="../static/img/legends/pressure_legend.png" class="img-fluid map">
         
@@ -123,4 +123,7 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  var api = '{{ api_key }}'
+</script>
 {% endblock %}
