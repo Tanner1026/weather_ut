@@ -65,7 +65,14 @@ def temp():
     try:
         with open("weather_data.json", "r") as file:
             weather_path = json.load(file)
-            return render_template('temperature.html', dewpoint=weather_path['dewPoint'], temp= weather_path['temperature'], temp_app= weather_path['temperatureApparent'], wind_dir= weather_path['windDirection'], wind_gust= weather_path['windGust'], wind_speed= weather_path['windSpeed'], success=True)
+            return render_template('temperature.html', 
+                                   dewpoint=weather_path['dewPoint'], 
+                                   temp= weather_path['temperature'], 
+                                   temp_app= weather_path['temperatureApparent'], 
+                                   wind_dir= weather_path['windDirection'], 
+                                   wind_gust= weather_path['windGust'], 
+                                   wind_speed= weather_path['windSpeed'], 
+                                   success=True)
     except:
         return render_template('temperature.html', success=False)    
 
@@ -75,7 +82,18 @@ def precip():
     try:
         with open("weather_data.json", "r") as file:
             weather_path = json.load(file)
-            return render_template('precipitation.html', cloudBase = weather_path['cloudBase'], cloudCeiling = weather_path['cloudCeiling'], visibility= weather_path['visibility'], precip_probability= weather_path['precipitationProbability'], humidity= weather_path['humidity'], pressure=weather_path['pressureSurfaceLevel'], rain_intensity= weather_path['rainIntensity'], sleet_intensity = weather_path['sleetIntensity'], snow_intensity=weather_path['snowIntensity'], success=True, api_key = os.getenv('API_KEY'))
+            return render_template('precipitation.html', 
+                                   cloudBase = weather_path['cloudBase'], 
+                                   cloudCeiling = weather_path['cloudCeiling'], 
+                                   visibility= weather_path['visibility'], 
+                                   precip_probability= weather_path['precipitationProbability'], 
+                                   humidity= weather_path['humidity'], 
+                                   pressure=weather_path['pressureSurfaceLevel'], 
+                                   rain_intensity= weather_path['rainIntensity'], 
+                                   sleet_intensity = weather_path['sleetIntensity'], 
+                                   snow_intensity=weather_path['snowIntensity'], 
+                                   success=True, 
+                                   api_key = os.getenv('API_KEY'))
     except:
         return render_template('precipitation.html', success=False)
 

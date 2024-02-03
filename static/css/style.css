@@ -21,6 +21,11 @@ width: 600px;}
   width: 600px;
 }
 
+.format{
+  width: 800px;
+  height: 800px;
+}
+
 .form{
   padding-top: 100px;
 }
