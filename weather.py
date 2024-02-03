@@ -1,6 +1,4 @@
-import requests
-import schedule
-import time
+import threading
 import json
 from datetime import date
 from flask import Flask, render_template, url_for, request, redirect
@@ -10,6 +8,10 @@ from forms import EmailForm
 import smtplib
 import os
 from dotenv import load_dotenv
+import requests
+import schedule
+import time
+
 
 load_dotenv()
 URL_FORECAST = "https://api.tomorrow.io/v4/weather/forecast"
@@ -18,7 +20,7 @@ URL_MAPS = 'https://api.tomorrow.io/v4/map/tile/'
 header_map = {'accept': 'text/plain'}
 precip_params = ['cloudBase', 'cloudCeiling', 'visibility', 'precipitationIntensity', 'humidity', 'pressureSurfaceLevel']
 today = date.today()
-
+running=True
 def api_execute():
     for param in precip_params:
         map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}")
@@ -42,13 +44,21 @@ def api_execute():
         with open("weather_data.json", "w") as file:
             json.dump(weather_path, file)
     except:
+        import smtplib
         with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
             connection.starttls()
             connection.login(os.getenv('ADMIN_EMAIL'), os.getenv('APP_PASSWORD'))
             connection.sendmail(from_addr=os.getenv('ADMIN_EMAIL'), to_addrs=os.getenv('ADMIN_EMAIL'), msg="Subject: Weather application API failure\n\nThe website failed to call the API")
 
-schedule.every(1).hour.do(api_execute)
+schedule.every().hour.do(api_execute)
 
+def run_background():
+    while running:
+        schedule.run_pending()
+        time.sleep(1)
+
+t= threading.Thread(target=run_background)
+t.start()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
@@ -132,6 +142,3 @@ def send_email(contents, sender_email):
 
 app.run(host="0.0.0.0")
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
