@@ -18,4 +18,4 @@ sqlalchemy-orm==1.2.10
 WTForms==3.0.1
 schedule==1.2.0
 python-dotenv==1.0.1
-werkzeug==0.16.1
+werkzeug==2.3.7
