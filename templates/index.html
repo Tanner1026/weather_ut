@@ -8,6 +8,7 @@
                 <p class="lead mb-4">Explore to see hourly updated satellite images of Utah weather conditions</p>
             </div>
           </div>
+
           <div class="container">  
             <div id="carouselExampleCaptions" class="carousel slide">
               <div class="carousel-indicators">
@@ -17,21 +18,21 @@
               </div>
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <a href='{{ url_for("precip") }}'><img src="../static/img/home_page_imgs/precipitation.jpg" class="d-block w-100 format" alt="..."></a>
+                  <a href='{{ url_for("precip") }}'><img src="../static/img/home_page_imgs/precipitation.jpg" class="d-block w-100 front-image" alt="..."></a>
                   <div class="carousel-caption d-none d-md-block">
                     <h5>Precipitation Data</h5>
                     <p>See current precipitation data for Salt Lake City</p>
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <a href="{{ url_for('air_q') }}"><img src="../static/img/home_page_imgs/air-quality-4998.jpg" class="d-block w-100 format" alt="..."></a>
+                  <a href="{{ url_for('air_q') }}"><img src="../static/img/home_page_imgs/air-quality-4998.jpg" class="d-block w-100 front-image" alt="..."></a>
                   <div class="carousel-caption d-none d-md-block">
                     <h5>Air Quality Data</h5>
                     <p>See current Air Quality Data for Salt Lake City</p>
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <a href="{{ url_for('temp') }}"><img src="../static/img/home_page_imgs/temperature.jpg" class="d-block w-100 format" alt="..."></a>
+                  <a href="{{ url_for('temp') }}"><img src="../static/img/home_page_imgs/temperature.jpg" class="d-block w-100 front-image" alt="..."></a>
                   <div class="carousel-caption d-none d-md-block">
                     <h5>Temperture and Wind Data</h5>
                     <p>See current temperature and wind data for Salt Lake City</p>
