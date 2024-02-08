@@ -12,15 +12,17 @@ import requests
 import schedule
 import time
 
-
 load_dotenv()
 URL_FORECAST = "https://api.tomorrow.io/v4/weather/forecast"
 URL_CURRENT_WEATHER = f"https://api.tomorrow.io/v4/weather/realtime?location=salt%20lake%20city&apikey={os.getenv('API_KEY')}"
 URL_MAPS = 'https://api.tomorrow.io/v4/map/tile/'
 header_map = {'accept': 'text/plain'}
 precip_params = ['cloudBase', 'cloudCeiling', 'visibility', 'precipitationIntensity', 'humidity', 'pressureSurfaceLevel']
+
 today = date.today()
+
 running=True
+
 def api_execute():
     for param in precip_params:
         map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}")
@@ -40,7 +42,7 @@ def api_execute():
                 file.write(map.content)
     try:
         current_weather = requests.get(URL_CURRENT_WEATHER).json()
-        weather_path = current_weather['data']['values']
+        weather_path = current_weather['data']
         with open("weather_data.json", "w") as file:
             json.dump(weather_path, file)
     except:
@@ -73,7 +75,9 @@ def home():
 def temp():
     try:
         with open("weather_data.json", "r") as file:
-            weather_path = json.load(file)
+            weather = json.load(file)
+            time = weather['time'].split("T")
+            weather_path=weather['values']
             return render_template('temperature.html', 
                                    dewpoint=weather_path['dewPoint'], 
                                    temp= weather_path['temperature'], 
@@ -81,6 +85,7 @@ def temp():
                                    wind_dir= weather_path['windDirection'], 
                                    wind_gust= weather_path['windGust'], 
                                    wind_speed= weather_path['windSpeed'], 
+                                   time = time[1],
                                    success=True)
     except:
         return render_template('temperature.html', success=False)    
@@ -90,7 +95,9 @@ def temp():
 def precip():
     try:
         with open("weather_data.json", "r") as file:
-            weather_path = json.load(file)
+            weather = json.load(file)
+            time = weather['time'].split("T")
+            weather_path=weather['values']
             return render_template('precipitation.html', 
                                    cloudBase = weather_path['cloudBase'], 
                                    cloudCeiling = weather_path['cloudCeiling'], 
@@ -102,6 +109,7 @@ def precip():
                                    sleet_intensity = weather_path['sleetIntensity'], 
                                    snow_intensity=weather_path['snowIntensity'], 
                                    success=True, 
+                                   time = time[1],
                                    api_key = os.getenv('API_KEY'))
     except:
         return render_template('precipitation.html', success=False)
@@ -109,8 +117,14 @@ def precip():
     
 @app.route('/air_quality')
 def air_q():
-    success = True
-    return render_template('air_quality.html', success = success)
+    try:
+        with open("weather_data.json", "r") as file:
+            weather = json.load(file)
+            time = weather['time'].split("T")
+        success = True
+        return render_template('air_quality.html', success = success, time=time[1])
+    except:
+        return render_template("air_quality.html", success= success)
 
 @app.route('/contact-me', methods=['POST', 'GET'])
 def contact():

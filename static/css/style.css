@@ -83,6 +83,10 @@ width: 600px;}
   }
 }
 
+h2{
+  text-align: center;
+}
+
 @media (max-width: 1200px) {
   .altered{
     height: 300px;
