@@ -1,6 +1,6 @@
 import threading
 import json
-from datetime import date
+from datetime import date, datetime
 from flask import Flask, render_template, url_for, request, redirect, jsonify
 from flask_bootstrap import Bootstrap5
 from flask_wtf import CSRFProtect
@@ -130,22 +130,28 @@ def air_q():
     
 @app.route('/weather-station')
 def weather_station():
-    db = Database()
-    unedited_data = db.get_recent()
-    temperature_c = round(unedited_data['temperature'], 1)
-    temperature_f = round(float(temperature_c) * (9/5) + 32, 1)
-    humidity = round(unedited_data['humidity'], 1)
-    pressure = round(unedited_data['pressure'], 1)
-    timestamp = unedited_data['date'].strftime('%m/%d/%Y %I:%M %p')
-    data = {
-        'temperature_c': temperature_c,
-        'temperature_f': temperature_f,
-        'humidity': humidity,
-        'pressure': pressure,
-        'date': timestamp
-    }
-    db.disconnect()
-    return render_template("saratoga_data.html", data=data)
+    try:
+        db = Database()
+        unedited_data = db.get_recent()
+        db.disconnect()
+        timestamp = unedited_data['date'].strftime('%m/%d/%Y %I:%M %p')
+    except:
+        with open("station_data.json", "r") as file:
+            unedited_data = json.load(file)
+            timestamp = datetime.strptime(unedited_data['date'].split(".")[0], '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y %I:%M %p')
+    finally:
+        temperature_c = round(float(unedited_data['temperature']), 1)
+        temperature_f = round(float(temperature_c) * (9/5) + 32, 1)
+        humidity = round(float(unedited_data['humidity']), 1)
+        pressure = round(float(unedited_data['pressure']), 1)
+        data = {
+            'temperature_c': temperature_c,
+            'temperature_f': temperature_f,
+            'humidity': humidity,
+            'pressure': pressure,
+            'date': timestamp
+        }
+        return render_template("saratoga_data.html", data=data)
 
 @app.route('/contact-me', methods=['POST', 'GET'])
 def contact():
@@ -181,11 +187,16 @@ def data():
             data = {'temperature': temp,
                     'pressure': pressure,
                     'humidity': humidity,
-                    'timestamp': time}
-            db = Database()
-            db.add_entry(data)
-            db.disconnect()
-            return jsonify({'message': 'Data was received', 'data': data}), 200
+                    'date': time}
+            try:
+                db = Database()
+                db.add_entry(data)
+                db.disconnect()
+            except:
+                with open("station_data.json", "w") as file:
+                    json.dump(data, file)
+            finally:
+                return jsonify({'message': 'Data was received', 'data': data}), 200
         else:
             return jsonify({'message': 'Authentication Failed'}), 401
     except:

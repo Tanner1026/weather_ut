@@ -25,7 +25,7 @@ class Database():
             INSERT INTO weather_data (temperature, humidity, surface_pressure, timestamp)
             VALUES (%s, %s, %s, %s)
             """
-            cursor.execute(insert_data, (data['temperature'], data['humidity'], data['pressure'], data['timestamp']))
+            cursor.execute(insert_data, (data['temperature'], data['humidity'], data['pressure'], data['date']))
             self.conn.commit()
         except psycopg2.Error as e:
             print(f"Error: {e}")
