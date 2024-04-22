@@ -20,7 +20,6 @@ URL_MAPS = 'https://api.tomorrow.io/v4/map/tile/'
 AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 header_map = {'accept': 'text/plain'}
 precip_params = ['cloudBase', 'cloudCeiling', 'visibility', 'precipitationIntensity', 'humidity', 'pressureSurfaceLevel']
-db = Database()
 today = date.today()
 
 running=True
@@ -131,7 +130,7 @@ def air_q():
     
 @app.route('/weather-station')
 def weather_station():
-    db.connect()
+    db = Database()
     unedited_data = db.get_recent()
     temperature_c = round(unedited_data['temperature'], 1)
     temperature_f = round(float(temperature_c) * (9/5) + 32, 1)
@@ -175,7 +174,6 @@ def data():
     print(authentication(token))
     try:
         if authentication(token) == True:
-            db.connect()
             temp = request.args.get('temperature')
             pressure = request.args.get('pressure')
             humidity = request.args.get('humidity')
@@ -184,7 +182,7 @@ def data():
                     'pressure': pressure,
                     'humidity': humidity,
                     'timestamp': time}
-            print(data)
+            db = Database()
             db.add_entry(data)
             db.disconnect()
             return jsonify({'message': 'Data was received', 'data': data}), 200

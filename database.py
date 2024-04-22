@@ -10,19 +10,13 @@ class Database():
         self.db_name = 'weather_data'
         self.db_user = os.getenv('DB_USER')
         self.db_password = os.getenv('DB_PASSWORD')
-
-    def connect(self):
-        try:
-            self.conn = psycopg2.connect(
+        self.conn = psycopg2.connect(
                     host = self.db_host,
                     port = self.db_port,
                     dbname = self.db_name,
                     user = self.db_user,
                     password = self.db_password,
                 )
-                
-        except psycopg2.Error as e:
-            print("Error Connecting to PostgreSQL:", e)
 
     def add_entry(self, data):
         try:
