@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="bg-custom-color">
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center">
+      <div class="col-md-6 p-lg-5 mx-auto my-5">
+        <h1 class="display-3 fw-bold">My Weather Project</h1>
+        <br>
+        <h2>My Own Home Weather Station Project</h2>
+        <br>
+        <h3 class="fw-normal text-muted mb-3">This is my own personal weather station created with a Raspberry Pi in Saratoga Springs Utah</h3>
+        <div class="d-flex gap-3 justify-content-center lead fw-normal">
+          <a class="icon-link" href="{{ url_for('home') }}">
+            Home
+          </a>
+        </div>
+      </div>
+      <div class="product-device shadow-sm d-none d-md-block"></div>
+      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+    </div>
+    <hr>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class='col-md-6 d-flex' id="left">
+      <img src="../static/img/weather_project_imgs/school_station/school_station.jpg" alt="My School Weather Station" class="weather_photos img-fluid">
+    </div>
+    <div class="col-md-6 d-flex" id="right">
+      <img src="../static/img/weather_project_imgs/school_station/personal_station.jpg" alt="My Personal Weather Station" class="weather_photos img-fluid">
+    </div>
+  </div>
+</div>
+<div width="100% container-fluid">
+  <p class="station-text d-flex text">This the page where I showcase my own personal weather station project and what I've worked on.  In the photo to the left, it shows the weather station I had the fortunate opportunity of setting up
+    through my schooling at the University of Utah.  We used a CR1000x Datalogger as well as a CS215 Air Temperature and Relative Humidity sensor, a CS320 Pyranometer to measure solar irradiance, a Barometer and an Anemometer to measure 
+    surface pressure and wind direction respectively.  I was so fascinated by the process of building and collecting data through that experience that I decided to do a more budget version of that integrated
+    here in my website.  The photo on the right hand side shows a Raspberry Pi 4B with a BME280 sensor that collects Temperature, Humidity and Air Pressure.  I will be displaying this data below.  This data will
+    be collected in Saratoga Springs Utah and be updated every 5 minutes. Thanks so much for checking out my little project!
+  </p>
+</div>
+<div class="container-flex data">
+  <div class="row">
+    <div>
+      <h1>Saratoga Springs Weather Station Data</h1>
+    </div>
+    <div>
+      <h2>This data has been updated as of {{ data.date }} MST</h2>
+    </div>
+    <br>
+    <div>
+      <h3>Temperature: {{ data.temperature_c }} C or {{ data.temperature_f }} F</h3>
+    </div>
+    <div>
+      <h3>Humidity: {{ data.humidity }}%</h3>
+    </div>
+    <div>
+      <h3>Pressure: {{ data.pressure }} hPa</h3>
+    </div>
+  </div>
+</div>
+{% endblock %}

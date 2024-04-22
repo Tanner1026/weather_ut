@@ -1,11 +1,12 @@
 import threading
 import json
 from datetime import date
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, jsonify
 from flask_bootstrap import Bootstrap5
 from flask_wtf import CSRFProtect
 from forms import EmailForm
 import smtplib
+from database import Database
 import os
 from dotenv import load_dotenv
 import requests
@@ -16,9 +17,10 @@ load_dotenv()
 URL_FORECAST = "https://api.tomorrow.io/v4/weather/forecast"
 URL_CURRENT_WEATHER = f"https://api.tomorrow.io/v4/weather/realtime?location=salt%20lake%20city&apikey={os.getenv('API_KEY')}"
 URL_MAPS = 'https://api.tomorrow.io/v4/map/tile/'
+AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 header_map = {'accept': 'text/plain'}
 precip_params = ['cloudBase', 'cloudCeiling', 'visibility', 'precipitationIntensity', 'humidity', 'pressureSurfaceLevel']
-
+db = Database()
 today = date.today()
 
 running=True
@@ -67,9 +69,11 @@ app.secret_key = os.getenv('SECRET_KEY')
 bootstrap = Bootstrap5(app)
 csrf = CSRFProtect(app)
 
+
 @app.route('/')
 def home():
     return render_template('index.html')
+
 
 @app.route('/temperature')
 def temp():
@@ -113,7 +117,6 @@ def precip():
                                    api_key = os.getenv('API_KEY'))
     except:
         return render_template('precipitation.html', success=False)
-
     
 @app.route('/air_quality')
 def air_q():
@@ -125,6 +128,25 @@ def air_q():
         return render_template('air_quality.html', success = success, time=time[1])
     except:
         return render_template("air_quality.html", success= success)
+    
+@app.route('/weather-station')
+def weather_station():
+    db.connect()
+    unedited_data = db.get_recent()
+    temperature_c = round(unedited_data['temperature'], 1)
+    temperature_f = round(float(temperature_c) * (9/5) + 32, 1)
+    humidity = round(unedited_data['humidity'], 1)
+    pressure = round(unedited_data['pressure'], 1)
+    timestamp = unedited_data['date'].strftime('%m/%d/%Y %I:%M %p')
+    data = {
+        'temperature_c': temperature_c,
+        'temperature_f': temperature_f,
+        'humidity': humidity,
+        'pressure': pressure,
+        'date': timestamp
+    }
+    db.disconnect()
+    return render_template("saratoga_data.html", data=data)
 
 @app.route('/contact-me', methods=['POST', 'GET'])
 def contact():
@@ -142,17 +164,40 @@ def contact():
 def thank_you():
     return render_template('thank-you.html')
 
-@app.route('/test')
-def test():
-    return render_template('test.html')
+def authentication(token):
+    return str(token) == AUTH_TOKEN
+    
+
+@app.route("/weather_data/post", methods=['POST'])
+@csrf.exempt
+def data():
+    token = request.headers.get('Authorization')
+    print(authentication(token))
+    try:
+        if authentication(token) == True:
+            db.connect()
+            temp = request.args.get('temperature')
+            pressure = request.args.get('pressure')
+            humidity = request.args.get('humidity')
+            time = request.args.get('timestamp')
+            data = {'temperature': temp,
+                    'pressure': pressure,
+                    'humidity': humidity,
+                    'timestamp': time}
+            print(data)
+            db.add_entry(data)
+            db.disconnect()
+            return jsonify({'message': 'Data was received', 'data': data}), 200
+        else:
+            return jsonify({'message': 'Authentication Failed'}), 401
+    except:
+        return jsonify({'message': 'Invalid API request'}), 400
 
 def send_email(contents, sender_email): 
     with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
         connection.starttls()
         connection.login(os.getenv('ADMIN_EMAIL'), os.getenv('APP_PASSWORD'))
         connection.sendmail(from_addr=sender_email, to_addrs=os.getenv('ADMIN_EMAIL'), msg=contents)
-
-
 
 app.run(host="0.0.0.0", debug=True)
 
