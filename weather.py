@@ -130,16 +130,9 @@ def air_q():
     
 @app.route('/weather-station')
 def weather_station():
-    try:
-        db = Database()
-        unedited_data = db.get_recent()
-        db.disconnect()
-        timestamp = unedited_data['date'].strftime('%m/%d/%Y %I:%M %p')
-    except:
-        with open("station_data.json", "r") as file:
-            unedited_data = json.load(file)
-            timestamp = datetime.strptime(unedited_data['date'].split(".")[0], '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y %I:%M %p')
-    finally:
+    with open("station_data.json", "r") as file:
+        unedited_data = json.load(file)
+        timestamp = datetime.strptime(unedited_data['date'].split(".")[0], '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y %I:%M %p')
         temperature_c = round(float(unedited_data['temperature']), 1)
         temperature_f = round(float(temperature_c) * (9/5) + 32, 1)
         humidity = round(float(unedited_data['humidity']), 1)
@@ -151,7 +144,7 @@ def weather_station():
             'pressure': pressure,
             'date': timestamp
         }
-        return render_template("saratoga_data.html", data=data)
+    return render_template("saratoga_data.html", data=data)
 
 @app.route('/contact-me', methods=['POST', 'GET'])
 def contact():
@@ -177,7 +170,6 @@ def authentication(token):
 @csrf.exempt
 def data():
     token = request.headers.get('Authorization')
-    print(authentication(token))
     try:
         if authentication(token) == True:
             temp = request.args.get('temperature')
@@ -188,15 +180,18 @@ def data():
                     'pressure': pressure,
                     'humidity': humidity,
                     'date': time}
+            
+            with open("station_data.json", "w") as file:
+                json.dump(data, file)
+
             try:
                 db = Database()
                 db.add_entry(data)
                 db.disconnect()
             except:
-                with open("station_data.json", "w") as file:
-                    json.dump(data, file)
-            finally:
-                return jsonify({'message': 'Data was received', 'data': data}), 200
+                pass
+            
+            return jsonify({'message': 'Data was received', 'data': data}), 200
         else:
             return jsonify({'message': 'Authentication Failed'}), 401
     except:
