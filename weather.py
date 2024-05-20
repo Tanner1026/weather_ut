@@ -175,11 +175,11 @@ def data():
             temp = request.args.get('temperature')
             pressure = request.args.get('pressure')
             humidity = request.args.get('humidity')
-            time = request.args.get('timestamp')
+            date = request.args.get('timestamp')
             data = {'temperature': temp,
                     'pressure': pressure,
                     'humidity': humidity,
-                    'date': time}
+                    'date': date}
             
             with open("station_data.json", "w") as file:
                 json.dump(data, file)

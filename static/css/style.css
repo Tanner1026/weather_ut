@@ -34,6 +34,14 @@ width: 600px;}
   justify-content: flex-start;
 }
 
+link[rel="icon"] {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px; 
+  overflow: hidden;
+  display: inline-block;
+}
+
 .format{
   width: 800px;
   height: 800px;
