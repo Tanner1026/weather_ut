@@ -184,12 +184,10 @@ def data():
             with open("station_data.json", "w") as file:
                 json.dump(data, file)
 
-            try:
-                db = Database()
-                db.add_entry(data)
-                db.disconnect()
-            except:
-                pass
+            db = Database()
+            db.add_entry(data)
+            db.disconnect()
+
             
             return jsonify({'message': 'Data was received', 'data': data}), 200
         else:
