@@ -132,7 +132,7 @@ def air_q():
 def weather_station():
     with open("station_data.json", "r") as file:
         unedited_data = json.load(file)
-        timestamp = datetime.strptime(unedited_data['date'].split(".")[0], '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y %I:%M %p')
+        timestamp = datetime.strptime(unedited_data['timestamp'].split(".")[0], '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y %I:%M %p')
         temperature_c = round(float(unedited_data['temperature']), 1)
         temperature_f = round(float(temperature_c) * (9/5) + 32, 1)
         humidity = round(float(unedited_data['humidity']), 1)
@@ -142,7 +142,7 @@ def weather_station():
             'temperature_f': temperature_f,
             'humidity': humidity,
             'pressure': pressure,
-            'date': timestamp
+            'timestamp': timestamp
         }
     return render_template("saratoga_data.html", data=data)
 
@@ -175,11 +175,11 @@ def data():
             temp = request.args.get('temperature')
             pressure = request.args.get('pressure')
             humidity = request.args.get('humidity')
-            date = request.args.get('timestamp')
+            timestamp = request.args.get('timestamp')
             data = {'temperature': temp,
                     'pressure': pressure,
                     'humidity': humidity,
-                    'date': date}
+                    'timestamp': timestamp}
             
             with open("station_data.json", "w") as file:
                 json.dump(data, file)
