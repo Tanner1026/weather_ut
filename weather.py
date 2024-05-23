@@ -188,9 +188,8 @@ def data():
                 db = Database()
                 db.add_entry(data)
                 db.disconnect()
-                return jsonify({'message': 'Database insert was successful'})
             except:
-                return jsonify({'message': 'Unable to connect to database'})
+                pass
             
             return jsonify({'message': 'Data was received', 'data': data}), 200
         else:
