@@ -7,7 +7,7 @@ class Database():
     def __init__(self):
         self.db_host = os.getenv('IP')
         self.db_port = '5432'
-        self.db_name = 'weather_data'
+        self.db_name = 'weather_station'
         self.db_user = os.getenv('DB_USER')
         self.db_password = os.getenv('DB_PASSWORD')
         self.conn = psycopg2.connect(
@@ -22,7 +22,7 @@ class Database():
         try:
             cursor = self.conn.cursor()
             insert_data = """
-            INSERT INTO weather_data (temperature, humidity, surface_pressure, timestamp)
+            INSERT INTO weather_data (temperature, humidity, pressure, timestamp)
             VALUES (%s, %s, %s, %s)
             """
             cursor.execute(insert_data, (data['temperature'], data['humidity'], data['pressure'], data['date']))
