@@ -131,18 +131,15 @@ def air_q():
 @app.route('/weather-station')
 def weather_station():
     with open("station_data.json", "r") as file:
-        unedited_data = json.load(file)
-        timestamp = datetime.strptime(unedited_data['timestamp'].split(".")[0], '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y %I:%M %p')
-        temperature_c = round(float(unedited_data['temperature']), 1)
-        temperature_f = round(float(temperature_c) * (9/5) + 32, 1)
-        humidity = round(float(unedited_data['humidity']), 1)
-        pressure = round(float(unedited_data['pressure']), 1)
+        file_data = json.load(file)
+        timestamp_formatted = datetime.strptime(file_data['timestamp'].split(".")[0], '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y %I:%M %p')
+        temperature_c = file_data['temperature']
         data = {
-            'temperature_c': temperature_c,
-            'temperature_f': temperature_f,
-            'humidity': humidity,
-            'pressure': pressure,
-            'timestamp': timestamp
+            'temperature_c': file_data['temperature'],
+            'temperature_f': round(temperature_c * (9/5) + 32, 1),
+            'humidity': file_data['humidity'],
+            'pressure': file_data['pressure'],
+            'timestamp': timestamp_formatted
         }
     return render_template("saratoga_data.html", data=data)
 
@@ -172,9 +169,9 @@ def data():
     token = request.headers.get('Authorization')
     try:
         if authentication(token) == True:
-            temp = request.args.get('temperature')
-            pressure = request.args.get('pressure')
-            humidity = request.args.get('humidity')
+            temp = round(float(request.args.get('temperature')), 1)
+            pressure = round(float(request.args.get('pressure')), 2)
+            humidity = round(float(request.args.get('humidity')), 1)
             timestamp = request.args.get('timestamp')
             data = {'temperature': temp,
                     'pressure': pressure,
