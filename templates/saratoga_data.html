@@ -30,7 +30,7 @@
   </div>
 </div>
 <div class="container-flex">
-    <p class="station-text d-flex text">This is the page where I showcase my own personal weather station project and what I've worked on.  In the photo to the left, it shows the weather station I had the fortunate opportunity of setting up
+    <p class="station-text d-flex text" style="padding-left:25px; padding-right: 25px;">This is the page where I showcase my own personal weather station project and what I've worked on.  In the photo to the left, it shows the weather station I had the fortunate opportunity of setting up
       through my schooling at the University of Utah.  We used a CR1000x Datalogger as well as a CS215 Air Temperature and Relative Humidity sensor, a CS320 Pyranometer to measure solar irradiance, a Barometer and an Anemometer to measure 
       surface pressure and wind direction respectively.  I was so fascinated by the process of building and collecting data through that experience that I decided to do a more budget version of that integrated
       here in my website.  The photo on the right hand side shows a Raspberry Pi 4B with a BME280 sensor that collects Temperature, Humidity and Air Pressure.  I will be displaying this data below.  This data will
@@ -38,14 +38,13 @@
     </p>
 </div>
 <div class="container-flex data">
-  <div class="row" style="width: 100%;">
+  <div style="width: 100%;">
     <div>
       <h1>Saratoga Springs Weather Station Data</h1>
     </div>
     <div>
       <h2>This data has been updated as of {{ data.timestamp }} MST</h2>
     </div>
-    <br>
     <div>
       <h3>Temperature: {{ data.temperature_c }} C or {{ data.temperature_f }} F</h3>
     </div>
