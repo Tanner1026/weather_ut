@@ -25,6 +25,15 @@ today = date.today()
 
 running=True
 
+def authentication(token):
+    return str(token) == AUTH_TOKEN
+
+def send_email(contents, sender_email): 
+    with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
+        connection.starttls()
+        connection.login(os.getenv('ADMIN_EMAIL'), os.getenv('APP_PASSWORD'))
+        connection.sendmail(from_addr=sender_email, to_addrs=os.getenv('ADMIN_EMAIL'), msg=contents)
+
 def api_execute():
     for param in precip_params:
         map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}")
@@ -55,11 +64,8 @@ def api_execute():
             weather_path['time'] = mst_dt.strftime("%Y-%m-%d %H:%M:%S")
             json.dump(weather_path, file)
     except Exception as e:
-        import smtplib
-        with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
-            connection.starttls()
-            connection.login(os.getenv('ADMIN_EMAIL'), os.getenv('APP_PASSWORD'))
-            connection.sendmail(from_addr=os.getenv('ADMIN_EMAIL'), to_addrs=os.getenv('ADMIN_EMAIL'), msg=f"Subject: Weather application API failure\n\nThe website failed to call the API due to error: {e}")
+        contents=f"Subject: Weather application API failure\n\nThe website failed to call the API due to error: {e}"
+        send_email(contents=contents, sender_email=os.getenv('ADMIN_EMAIL'))      
 
 schedule.every().hour.do(api_execute)
 
@@ -75,7 +81,6 @@ app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 bootstrap = Bootstrap5(app)
 csrf = CSRFProtect(app)
-
 
 @app.route('/')
 def home():
@@ -95,7 +100,6 @@ def temp():
                                    success=True)
     except:
         return render_template('temperature.html', success=False)    
-
 
 @app.route('/precipitation')
 def precip():
@@ -154,10 +158,6 @@ def contact():
 def thank_you():
     return render_template('thank-you.html')
 
-def authentication(token):
-    return str(token) == AUTH_TOKEN
-    
-
 @app.route("/weather_data/post", methods=['POST'])
 @csrf.exempt
 def data():
@@ -189,11 +189,5 @@ def data():
     except:
         return jsonify({'message': 'Invalid API request'}), 400
 
-def send_email(contents, sender_email): 
-    with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
-        connection.starttls()
-        connection.login(os.getenv('ADMIN_EMAIL'), os.getenv('APP_PASSWORD'))
-        connection.sendmail(from_addr=sender_email, to_addrs=os.getenv('ADMIN_EMAIL'), msg=contents)
-
-app.run(host="0.0.0.0", debug=True)
+app.run(host="0.0.0.0")
 
