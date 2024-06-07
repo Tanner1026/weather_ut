@@ -5,7 +5,7 @@
     <div class="col-md-6 p-lg-5 mx-auto my-5">
       <h1 class="display-3 fw-bold">Temperature and Wind Data</h1>
       <br>
-      <h2>Information updated hourly, most recent update: {{ time }}</h2>
+      <h2>Information updated hourly, most recent update: {{ time }} MST</h2>
       <br>
       <h3 class="fw-normal text-muted mb-3">Consolidated Western United States Temperature, Dewpoint and Wind Data</h3>
       <div class="d-flex gap-3 justify-content-center lead fw-normal">
@@ -39,7 +39,7 @@
           <p><b>Dewpoint Temperature</b> is defined as the temperature to which the actual air temperature would have to be decreased to in order for the air to reach saturation. 
             <br>
             <br>
-            The current observed dewpoint temperature in Salt Lake City, Utah is {{ dewpoint }} degrees Celsius</p>
+            The current observed dewpoint temperature in Salt Lake City, Utah is {{ data.dewPoint }} degrees Celsius</p>
         {% endif %}
       </div>
       <div class="col-md-3 mb-4 d-flex centered">
@@ -52,7 +52,7 @@
       </div>
       <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
-          <p>The current Temperature reading in Salt Lake City, Utah is {{ temp }} degrees Celsius</p>
+          <p>The current Temperature reading in Salt Lake City, Utah is {{ data.temperature }} degrees Celsius</p>
         {% endif %}
       </div>
       <!-- Repeat the pattern for the remaining images and text -->
@@ -69,7 +69,7 @@
           <p><b>Apparent Temperature</b> is defined as the the temperature that we perceive as humans.  This definition takes into account wind chill, humidity, heat index etc.
             <br>
             <br>
-            The current Apparent Temperature in Salt Lake City, Utah is {{ temp_app }} degrees Celsius</p>
+            The current Apparent Temperature in Salt Lake City, Utah is {{ data.temperatureApparent }} degrees Celsius</p>
         {% endif %}
       </div>
       <div class="col-md-3 mb-4 d-flex centered">
@@ -89,7 +89,7 @@
             so in this case, winds blowing towards the north would be 180 degree wind.
             <br>
             <br>
-            The current Wind Direction in Salt Lake City, Utah is {{ wind_dir }} degrees</p>
+            The current Wind Direction in Salt Lake City, Utah is {{ data.windDirection }} degrees</p>
         {% endif %}
       </div>
       <div class="col-md-3 mb-4 d-flex spacer">
@@ -106,7 +106,7 @@
             the difference between the peaks and lulls of wind speed is about 9 knots.
             <br>
             <br>
-            The current Wind Gust in Salt Lake City, Utah is {{ wind_gust }} kph</p>
+            The current Wind Gust in Salt Lake City, Utah is {{ data.windGust }} kph</p>
         {% endif %}
       </div>
       <div class="col-md-3 mb-4 d-flex centered">
@@ -119,7 +119,7 @@
       </div>
       <div class="col-md-2 mb-4 d-flex text">
         {% if success == True %}
-          <p>The current wind speed in Salt Lake City, Utah is {{ wind_speed }} kph</p>
+          <p>The current wind speed in Salt Lake City, Utah is {{ data.windSpeed }} kph</p>
         {% endif %}
       </div>
     </div>

@@ -5,7 +5,7 @@
       <div class="col-md-6 p-lg-5 mx-auto my-5">
         <h1 class="display-3 fw-bold">Precipitation Data</h1>
         <br>
-        <h2>Information updated hourly, most recent update: {{ time }}</h2>
+        <h2>Information updated hourly, most recent update: {{ time }} MST</h2>
         <br>
         <h3 class="fw-normal text-muted mb-3">Consolidated Western United States Precipitation Data</h3>
         <div class="d-flex gap-3 justify-content-center lead fw-normal">
@@ -40,7 +40,7 @@
           and weather models.
           <br>
           <br> 
-          The current observed cloud base height in Salt Lake City, Utah is {{ cloudBase }} kilometers</p>
+          The current observed cloud base height in Salt Lake City, Utah is {{ data.cloudBase }} kilometers</p>
       </div>
       <div class="col-md-3 mb-4 d-flex centered">
         <h2>Cloud Ceiling Height</h2>
@@ -54,7 +54,7 @@
            cloud, thundercloud potential and its effects on the atmospheric system.  In addition, this is also a key piece of information for aviation and weather models.
            <br>
            <br>
-          The current cloud ceiling height in Salt Lake City, Utah is {{ cloudCeiling }} kilometers</p>
+          The current cloud ceiling height in Salt Lake City, Utah is {{ data.cloudCeiling }} kilometers</p>
       </div>
       
       <!-- Repeat the pattern for the remaining images and text -->
@@ -69,7 +69,7 @@
           regards to safety.  It helps people make informed decisions as to travel and the conditions they would have to endure.
           <br>
           <br>
-          The current visibility in Salt Lake City, Utah is {{ visibility }} kilometers</p>
+          The current visibility in Salt Lake City, Utah is {{ data.visibility }} kilometers</p>
       </div>
       <div class="col-md-3 mb-4 d-flex centered">
         <h2>Precipitation Intensity</h2>
@@ -88,10 +88,10 @@
           <br>
           <br>
           The current precipitation intensity in Salt Lake City, Utah is
-          <br>rain: {{ rain_intensity }} mm/hr
-          <br>sleet: {{ sleet_intensity }} mm/hr
-          <br>snow: {{ snow_intensity }} mm/hr
-          <br>and the probability of precipitation is {{ precip_probability }}%</p>
+          <br>rain: {{ data.rainIntensity }} mm/hr
+          <br>sleet: {{ data.sleetIntensity }} mm/hr
+          <br>snow: {{ data.snowIntensity }} mm/hr
+          <br>and the probability of precipitation is {{ data.precipitationProbability }}%</p>
       </div>
       <div class="col-md-3 mb-4 d-flex spacer">
         <h2>Humidity</h2>
@@ -105,7 +105,7 @@
           This measurement tells us how close the air is to saturation.
           <br>
           <br>
-          The current humdity in Salt Lake City, Utah is {{ humidity }}%</p>
+          The current humdity in Salt Lake City, Utah is {{ data.humidity }}%</p>
       </div>
       <div class="col-md-3 mb-4 d-flex centered">
         <h2>Surface Level Pressure</h2>
@@ -122,7 +122,7 @@
           It is important to note that while these are typical patters, they are not absolutes.
           <br>
           <br>
-          The current surface pressure in Salt Lake City, Utah is {{ pressure }} hPa</p>
+          The current surface pressure in Salt Lake City, Utah is {{ data.pressureSurfaceLevel }} hPa</p>
       </div>
     </div>
   </div>

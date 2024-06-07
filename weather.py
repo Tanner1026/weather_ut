@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 import requests
 import schedule
 import time
+import pytz
 
 load_dotenv()
 URL_FORECAST = "https://api.tomorrow.io/v4/weather/forecast"
@@ -45,13 +46,20 @@ def api_execute():
         current_weather = requests.get(URL_CURRENT_WEATHER).json()
         weather_path = current_weather['data']
         with open("weather_data.json", "w") as file:
+            timestamp_utc=weather_path['time']
+            utc_dt = datetime.strptime(timestamp_utc, "%Y-%m-%dT%H:%M:%SZ")
+            utc_zone = pytz.utc
+            mst_zone = pytz.timezone("US/Arizona")
+            utc_dt = utc_zone.localize(utc_dt)
+            mst_dt = utc_dt.astimezone(mst_zone)
+            weather_path['time'] = mst_dt.strftime("%Y-%m-%d %H:%M:%S")
             json.dump(weather_path, file)
-    except:
+    except Exception as e:
         import smtplib
         with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
             connection.starttls()
             connection.login(os.getenv('ADMIN_EMAIL'), os.getenv('APP_PASSWORD'))
-            connection.sendmail(from_addr=os.getenv('ADMIN_EMAIL'), to_addrs=os.getenv('ADMIN_EMAIL'), msg="Subject: Weather application API failure\n\nThe website failed to call the API")
+            connection.sendmail(from_addr=os.getenv('ADMIN_EMAIL'), to_addrs=os.getenv('ADMIN_EMAIL'), msg=f"Subject: Weather application API failure\n\nThe website failed to call the API due to error: {e}")
 
 schedule.every().hour.do(api_execute)
 
@@ -79,16 +87,11 @@ def temp():
     try:
         with open("weather_data.json", "r") as file:
             weather = json.load(file)
-            time = weather['time'].split("T")
+            time = weather['time']
             weather_path=weather['values']
             return render_template('temperature.html', 
-                                   dewpoint=weather_path['dewPoint'], 
-                                   temp= weather_path['temperature'], 
-                                   temp_app= weather_path['temperatureApparent'], 
-                                   wind_dir= weather_path['windDirection'], 
-                                   wind_gust= weather_path['windGust'], 
-                                   wind_speed= weather_path['windSpeed'], 
-                                   time = time[1],
+                                   data=weather_path,
+                                   time = time,
                                    success=True)
     except:
         return render_template('temperature.html', success=False)    
@@ -99,20 +102,12 @@ def precip():
     try:
         with open("weather_data.json", "r") as file:
             weather = json.load(file)
-            time = weather['time'].split("T")
+            time = weather['time']
             weather_path=weather['values']
             return render_template('precipitation.html', 
-                                   cloudBase = weather_path['cloudBase'], 
-                                   cloudCeiling = weather_path['cloudCeiling'], 
-                                   visibility= weather_path['visibility'], 
-                                   precip_probability= weather_path['precipitationProbability'], 
-                                   humidity= weather_path['humidity'], 
-                                   pressure=weather_path['pressureSurfaceLevel'], 
-                                   rain_intensity= weather_path['rainIntensity'], 
-                                   sleet_intensity = weather_path['sleetIntensity'], 
-                                   snow_intensity=weather_path['snowIntensity'], 
+                                   data=weather_path, 
                                    success=True, 
-                                   time = time[1],
+                                   time = time,
                                    api_key = os.getenv('API_KEY'))
     except:
         return render_template('precipitation.html', success=False)
@@ -122,9 +117,9 @@ def air_q():
     try:
         with open("weather_data.json", "r") as file:
             weather = json.load(file)
-            time = weather['time'].split("T")
+            time = weather['time']
         success = True
-        return render_template('air_quality.html', success = success, time=time[1])
+        return render_template('air_quality.html', success = success, time=time)
     except:
         return render_template("air_quality.html", success= success)
     
