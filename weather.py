@@ -61,7 +61,7 @@ def api_execute():
             mst_zone = pytz.timezone("US/Arizona")
             utc_dt = utc_zone.localize(utc_dt)
             mst_dt = utc_dt.astimezone(mst_zone)
-            weather_path['time'] = mst_dt.strftime("%Y-%m-%d %H:%M:%S")
+            weather_path['time'] = mst_dt.strftime("%m/%d/%Y %I:%M %p")
             json.dump(weather_path, file)
     except Exception as e:
         contents=f"Subject: Weather application API failure\n\nThe website failed to call the API due to error: {e}"
@@ -175,7 +175,7 @@ def data():
             
             with open("station_data.json", "w") as file:
                 json.dump(data, file)
-
+            
             try:
                 db = Database()
                 db.add_entry(data)
@@ -186,8 +186,8 @@ def data():
             return jsonify({'message': 'Data was received', 'data': data}), 200
         else:
             return jsonify({'message': 'Authentication Failed'}), 401
-    except:
-        return jsonify({'message': 'Invalid API request'}), 400
+    except Exception as e:
+        return jsonify({'message': f'API Request failed due to error {e}'}), 400
 
 app.run(host="0.0.0.0")
 
