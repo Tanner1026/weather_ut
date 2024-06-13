@@ -63,8 +63,8 @@ def api_execute():
             mst_dt = utc_dt.astimezone(mst_zone)
             weather_path['time'] = mst_dt.strftime("%m/%d/%Y %I:%M %p")
             json.dump(weather_path, file)
-    except Exception as e:
-        contents=f"Subject: Weather application API failure\n\nThe website failed to call the API due to error: {e}"
+    except:
+        contents=f"Subject: Weather application API failure\n\nThe website failed to call the API"
         send_email(contents=contents, sender_email=os.getenv('ADMIN_EMAIL'))      
 
 schedule.every().hour.do(api_execute)
