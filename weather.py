@@ -35,23 +35,24 @@ def send_email(contents, sender_email):
         connection.sendmail(from_addr=sender_email, to_addrs=os.getenv('ADMIN_EMAIL'), msg=contents)
 
 def api_execute():
-    for param in precip_params:
-        map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}")
-        with open(f'static/img/precipitation_maps/{param}.png', 'wb') as file:
-            file.write(map.content)
-
-    temp_page_params = ['windSpeed', 'windDirection', 'windGust', 'dewPoint', 'temperature', 'temperatureApparent']
-    for param in temp_page_params:
-            map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}", headers=header_map)
-            with open(f'static/img/temp_wind_maps/{param}.png','wb') as file:
-                file.write(map.content)
-
-    air_q_params = ['particulateMatter25', 'particulateMatter10', 'pollutantO3', 'pollutantNO2', 'pollutantCO', 'epaIndex']
-    for param in air_q_params:
-            map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}", headers=header_map)
-            with open(f'static/img/air_q_maps/{param}.png','wb') as file:
-                file.write(map.content)
     try:
+        for param in precip_params:
+            map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}")
+            with open(f'static/img/precipitation_maps/{param}.png', 'wb') as file:
+                file.write(map.content)
+
+        temp_page_params = ['windSpeed', 'windDirection', 'windGust', 'dewPoint', 'temperature', 'temperatureApparent']
+        for param in temp_page_params:
+                map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}", headers=header_map)
+                with open(f'static/img/temp_wind_maps/{param}.png','wb') as file:
+                    file.write(map.content)
+
+        air_q_params = ['particulateMatter25', 'particulateMatter10', 'pollutantO3', 'pollutantNO2', 'pollutantCO', 'epaIndex']
+        for param in air_q_params:
+                map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}", headers=header_map)
+                with open(f'static/img/air_q_maps/{param}.png','wb') as file:
+                    file.write(map.content)
+    
         current_weather = requests.get(URL_CURRENT_WEATHER).json()
         weather_path = current_weather['data']
         with open("weather_data.json", "w") as file:
