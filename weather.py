@@ -71,11 +71,16 @@ schedule.every().hour.do(api_execute)
 
 def run_background():
     while running:
-        schedule.run_pending()
-        time.sleep(1)
+        try:
+            schedule.run_pending()
+            time.sleep(5)
+        except Exception as e:
+            print(f"Error: {e}")
+            time.sleep(1)
 
 t= threading.Thread(target=run_background)
 t.start()
+
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
