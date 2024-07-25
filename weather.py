@@ -13,6 +13,7 @@ import requests
 import schedule
 import time
 import pytz
+from graphing import Grapher
 
 load_dotenv()
 URL_FORECAST = "https://api.tomorrow.io/v4/weather/forecast"
@@ -33,6 +34,15 @@ def send_email(contents, sender_email):
         connection.starttls()
         connection.login(os.getenv('ADMIN_EMAIL'), os.getenv('APP_PASSWORD'))
         connection.sendmail(from_addr=sender_email, to_addrs=os.getenv('ADMIN_EMAIL'), msg=contents)
+
+def create_graph(start_date, end_date, data_type):
+    
+    db = Database()
+    print(data_type)
+    results = db.graphical_results(start_date=start_date, end_date=end_date, data_type=data_type)
+    print(results[0][1])
+    grapher = Grapher()
+    grapher.create_graphs(data=results, data_type=data_type)
 
 def api_execute():
     try:
@@ -80,8 +90,7 @@ def run_background():
             time.sleep(1)
 
 t= threading.Thread(target=run_background)
-t.start()
-
+# t.start()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
@@ -148,6 +157,24 @@ def weather_station():
         }
     return render_template("saratoga_data.html", data=data)
 
+@app.route("/data_graphs")
+def graphs():
+    return render_template("graph.html")
+
+@app.route('/process_dates', methods=['POST'])
+@csrf.exempt
+def process_dates():
+    try:
+        data = request.get_json()
+        start_date = datetime.strptime(data.get('start_date'), '%m/%d/%Y').strftime('%Y-%m-%d')
+        end_date = datetime.strptime(data.get('end_date'), '%m/%d/%Y').strftime('%Y-%m-%d')
+        data_type = str(data.get('data_type'))
+        create_graph(start_date=start_date, end_date=end_date, data_type=data_type)
+        return jsonify({'status': 'success', 'message': 'Dates processed successfully'})
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({'status': 'error', 'message': 'An error occurred'}), 400
+
 @app.route('/contact-me', methods=['POST', 'GET'])
 def contact():
     form = EmailForm()
@@ -195,5 +222,5 @@ def data():
     except Exception as e:
         return jsonify({'message': f'API Request failed due to error {e}'}), 400
 
-app.run(host="0.0.0.0")
+app.run(host="0.0.0.0", debug=True)
 

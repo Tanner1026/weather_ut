@@ -49,6 +49,16 @@ class Database():
         except psycopg2.Error as e:
             print(f"Error: {e}")
 
+    def graphical_results(self, start_date, end_date, data_type):
+        try:
+            cursor = self.conn.cursor()
+            query = f"SELECT {data_type}, timestamp FROM weather_data WHERE timestamp::date >= '{start_date}' AND timestamp::date <= '{end_date}'"
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return rows
+        except:
+            pass
+
     def disconnect(self):
         if self.conn:
             self.conn.close()

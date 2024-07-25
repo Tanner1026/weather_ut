@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block content %}
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+</head>
+<div class="container">
+    <h1 style="text-align: center">See Historical Weather Data from my Station</h1>
+    <br>
+    <h3 style="text-align: center; margin-bottom: 50px;">Please note that some days the station was down or had issues, so graphing data over long periods of time may result in strange looking graphs or gaps in data</h2>
+    <div class="form-group">
+        <label style="margin-bottom: 25px"for="date-range">Choose a date range:</label>
+        <div class="input-daterange input-group" id="datepicker">
+            <input style="margin-right: 25px" type="text" class="form-control" name="start" placeholder="Start Date" id="startDate" />
+            <span class="input-group-addon">to</span>
+            <input style="margin-left: 25px"type="text" class="form-control" name="end" placeholder="End Date" id="endDate" />
+        </div>
+        <div style="margin-top: 25px;"class="data-type-selector">
+            <select class="form-select" aria-label="Default select example" id="dataselector">
+                <option selected>Select Data Type to Display</option>
+                <option value="temperature">Temperature</option>
+                <option value="humidity">Humidity</option>
+                <option value="pressure">Pressure</option>
+            </select>
+        </div>
+    </div>
+    <button style="margin-top: 15px;" id="submitBtn" class="btn btn-primary">Submit</button>
+</div>
+<br>
+    <div id="graph-container" class="container d-flex justify-content-center align-items-center">
+        <img id="graph" src="" alt="Generated Graph" style="display: none;">
+    </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Bootstrap Datepicker JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="../static/js/graph.js"></script>
+{% endblock %}
