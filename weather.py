@@ -90,7 +90,7 @@ def run_background():
             time.sleep(1)
 
 t= threading.Thread(target=run_background)
-# t.start()
+t.start()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
