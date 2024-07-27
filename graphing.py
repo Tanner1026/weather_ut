@@ -19,7 +19,7 @@ class Grapher:
         if data_type == 'temperature' and temp_units == 'celsius':
             y_axis_label = 'Temperature (°C)'
         elif data_type == 'temperature' and temp_units == 'fahrenheit':
-            y_axis_label == 'Temperature (°F)'
+            y_axis_label = 'Temperature (°F)'
         elif data_type == 'humidity':
             y_axis_label = 'Humidity in %'
         else:
