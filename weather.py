@@ -35,14 +35,12 @@ def send_email(contents, sender_email):
         connection.login(os.getenv('ADMIN_EMAIL'), os.getenv('APP_PASSWORD'))
         connection.sendmail(from_addr=sender_email, to_addrs=os.getenv('ADMIN_EMAIL'), msg=contents)
 
-def create_graph(start_date, end_date, data_type):
+def create_graph(start_date, end_date, data_type, temp_units):
     
     db = Database()
-    print(data_type)
     results = db.graphical_results(start_date=start_date, end_date=end_date, data_type=data_type)
-    print(results[0][1])
     grapher = Grapher()
-    grapher.create_graphs(data=results, data_type=data_type)
+    grapher.create_graphs(data=results, data_type=data_type, temp_units=temp_units)
 
 def api_execute():
     try:
@@ -165,11 +163,16 @@ def graphs():
 @csrf.exempt
 def process_dates():
     try:
+        temperature_units = None
         data = request.get_json()
         start_date = datetime.strptime(data.get('start_date'), '%m/%d/%Y').strftime('%Y-%m-%d')
         end_date = datetime.strptime(data.get('end_date'), '%m/%d/%Y').strftime('%Y-%m-%d')
         data_type = str(data.get('data_type'))
-        create_graph(start_date=start_date, end_date=end_date, data_type=data_type)
+        if data_type == 'temperature':
+            temperature_units = data.get('units')
+        else:
+            pass
+        create_graph(start_date=start_date, end_date=end_date, data_type=data_type, temp_units=temperature_units)
         return jsonify({'status': 'success', 'message': 'Dates processed successfully'})
     except Exception as e:
         print(f"Error: {e}")
@@ -222,5 +225,5 @@ def data():
     except Exception as e:
         return jsonify({'message': f'API Request failed due to error {e}'}), 400
 
-app.run(host="0.0.0.0", debug=True)
+app.run(host="0.0.0.0")
 

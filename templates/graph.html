@@ -15,11 +15,18 @@
             <input style="margin-left: 25px"type="text" class="form-control" name="end" placeholder="End Date" id="endDate" />
         </div>
         <div style="margin-top: 25px;"class="data-type-selector">
-            <select class="form-select" aria-label="Default select example" id="dataselector">
+            <select class="form-select" aria-label="Default select example" id="dataSelector">
                 <option selected>Select Data Type to Display</option>
                 <option value="temperature">Temperature</option>
                 <option value="humidity">Humidity</option>
                 <option value="pressure">Pressure</option>
+            </select>
+        </div>
+        <div class="form-group" id="temperatureDropdownContainer" style="display: none; margin-top: 25px;">
+            <select class="form-control" id="temperatureDropdown">
+                <option selected value="celsius">Select Temperature Units (Default (°C))</option>
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
             </select>
         </div>
     </div>
@@ -27,7 +34,7 @@
 </div>
 <br>
     <div id="graph-container" class="container d-flex justify-content-center align-items-center">
-        <img id="graph" src="" alt="Generated Graph" style="display: none;">
+        <img id="graph" src="" alt="Generated Graph" style="display: none;" class="img-fluid">
     </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap JavaScript -->
