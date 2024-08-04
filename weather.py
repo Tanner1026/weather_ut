@@ -204,13 +204,18 @@ def data():
             pressure = round(float(request.args.get('pressure')), 2)
             humidity = round(float(request.args.get('humidity')), 1)
             timestamp = request.args.get('timestamp')
+            station_id = int(request.args.get('station_id'))
             data = {'temperature': temp,
                     'pressure': pressure,
                     'humidity': humidity,
-                    'timestamp': timestamp}
+                    'timestamp': timestamp,
+                    'station_id': station_id}
             
-            with open("station_data.json", "w") as file:
-                json.dump(data, file)
+            if station_id == 1:
+                with open("station_data.json", "w") as file:
+                    json.dump(data, file)
+            else:
+                pass
             
             try:
                 db = Database()
