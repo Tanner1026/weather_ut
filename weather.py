@@ -209,20 +209,20 @@ def data():
                     'pressure': pressure,
                     'humidity': humidity,
                     'timestamp': timestamp,
-                    'station_id': station_id}
-            
+                    'station_id': station_id
+                    }
             if station_id == 1:
                 with open("station_data.json", "w") as file:
                     json.dump(data, file)
             else:
                 pass
-            
+
             try:
                 db = Database()
                 db.add_entry(data)
                 db.disconnect()
-            except:
-                pass
+            except Exception as e:
+                print(e)
             
             return jsonify({'message': 'Data was received', 'data': data}), 200
         else:
