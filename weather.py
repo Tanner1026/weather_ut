@@ -153,7 +153,18 @@ def weather_station():
             'pressure': file_data['pressure'],
             'timestamp': timestamp_formatted
         }
-    return render_template("saratoga_data.html", data=data)
+    with open("station_2_data.json", "r") as file:
+        file_data = json.load(file)
+        timestamp_formatted = datetime.strptime(file_data['timestamp'].split(".")[0], '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y %I:%M %p')
+        temperature_c = file_data['temperature']
+        data_2 = {
+            'temperature_c': file_data['temperature'],
+            'temperature_f': round(temperature_c * (9/5) + 32, 1),
+            'humidity': file_data['humidity'],
+            'pressure': file_data['pressure'],
+            'timestamp': timestamp_formatted
+        }
+    return render_template("saratoga_data.html", data=data, data_2=data_2)
 
 @app.route("/data_graphs")
 def graphs():
@@ -213,6 +224,9 @@ def data():
                     }
             if station_id == 1:
                 with open("station_data.json", "w") as file:
+                    json.dump(data, file)
+            elif station_id == 2:
+                with open("station_2_data.json", "w") as file:
                     json.dump(data, file)
             else:
                 pass

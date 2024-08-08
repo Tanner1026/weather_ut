@@ -56,4 +56,23 @@
     </div>
   </div>
 </div>
+<div class="container-flex data">
+  <div style="width: 100%; margin-top: 25px;">
+    <div>
+      <h1>Riverton Weather Station Data</h1>
+    </div>
+    <div>
+      <h2>This data has been updated as of {{ data_2.timestamp }} MST</h2>
+    </div>
+    <div>
+      <h3>Temperature: {{ data_2.temperature_c }} C or {{ data_2.temperature_f }} F</h3>
+    </div>
+    <div>
+      <h3>Humidity: {{ data_2.humidity }}%</h3>
+    </div>
+    <div>
+      <h3>Pressure: {{ data_2.pressure }} hPa</h3>
+    </div>
+  </div>
+</div>
 {% endblock %}
