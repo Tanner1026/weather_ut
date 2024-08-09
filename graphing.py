@@ -12,6 +12,7 @@ class Grapher:
             df[data_type] = df[data_type].apply(lambda x: x * (9/5) + 32) 
         else:
             pass
+        df= df.sort_values(by='timestamp')
         plt.figure(figsize=(10, 5))
         plt.plot(df['timestamp'], df[data_type])
         plt.title(f'{data_type.capitalize()} Over Selected Date(s)')

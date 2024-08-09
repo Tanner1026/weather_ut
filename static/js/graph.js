@@ -2,12 +2,35 @@ $(document).ready(function(){
 
     var today = new Date();
 
-    $('.input-daterange').datepicker({
-        format: 'mm/dd/yyyy',
-        startDate: '05/22/2024',
-        endDate: today,
-        autoclose: true,
-        todayHighlight: true
+    
+
+    $('#stationID').change(function() {
+        var stationID = $(this).val();
+        var startDate;
+
+        if (stationID === '1' || stationID === '2') {
+            if (stationID === '1') {
+                startDate = '05/22/2024'; // Station 1 start date
+            } else if (stationID === '2') {
+                startDate = '08/07/2024'; // Station 2 start date
+            }
+            
+            $('.input-daterange').datepicker({
+                startDate: startDate,
+                endDate: today,
+                format: 'mm/dd/yyyy',
+                autoclose: true,
+                todayHighlight: true
+            });
+            
+            $('#datepicker').show();
+            $('#dataSelector').show();
+            $('#dateLabel').show();
+        } else {
+            $('#datepicker').hide();
+            $('#dataSelector').hide();
+            $('#dateLabel').hide();
+        }
     });
 
     $('#dataSelector').change(function() {
@@ -23,8 +46,8 @@ $(document).ready(function(){
         var endDate = $('#endDate').val();
         var dataType = $('#dataSelector').val();
         var units = $('#temperatureDropdown').val();
-        var stacked = $('#dataSelectorStacked').val();
-
+        var stationID = $('#stationID').val();
+        console.log(stationID)
         if (startDate && endDate && dataType) {
 
             $('#graph').hide();
@@ -32,7 +55,7 @@ $(document).ready(function(){
                 type: 'POST',
                 url: '/process_dates',
                 contentType: 'application/json',
-                data: JSON.stringify({ 'start_date': startDate, 'end_date': endDate, 'data_type': dataType, 'units': units }),
+                data: JSON.stringify({ 'start_date': startDate, 'end_date': endDate, 'data_type': dataType, 'units': units, 'station_id': stationID }),
                 success: function(response) {
                     var newSrc = '/static/img/data_graph/graph.png?' + new Date().getTime();
                     $('#graph').attr('src', newSrc);
@@ -43,7 +66,7 @@ $(document).ready(function(){
                 }
             });
         } else {
-            alert('Please select both a start and end date as well as a data type.');
+            alert('Please make sure to fill in all available fields');
         }
     });
     

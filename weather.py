@@ -35,10 +35,10 @@ def send_email(contents, sender_email):
         connection.login(os.getenv('ADMIN_EMAIL'), os.getenv('APP_PASSWORD'))
         connection.sendmail(from_addr=sender_email, to_addrs=os.getenv('ADMIN_EMAIL'), msg=contents)
 
-def create_graph(start_date, end_date, data_type, temp_units):
-    
+def create_graph(start_date, end_date, data_type, temp_units, station_id):
     db = Database()
-    results = db.graphical_results(start_date=start_date, end_date=end_date, data_type=data_type)
+    print(station_id)
+    results = db.graphical_results(start_date=start_date, end_date=end_date, data_type=data_type, station_id=station_id)
     grapher = Grapher()
     grapher.create_graphs(data=results, data_type=data_type, temp_units=temp_units)
 
@@ -178,12 +178,13 @@ def process_dates():
         data = request.get_json()
         start_date = datetime.strptime(data.get('start_date'), '%m/%d/%Y').strftime('%Y-%m-%d')
         end_date = datetime.strptime(data.get('end_date'), '%m/%d/%Y').strftime('%Y-%m-%d')
+        station_id = int(data.get('station_id'))
         data_type = str(data.get('data_type'))
         if data_type == 'temperature':
             temperature_units = data.get('units')
         else:
             pass
-        create_graph(start_date=start_date, end_date=end_date, data_type=data_type, temp_units=temperature_units)
+        create_graph(start_date=start_date, end_date=end_date, data_type=data_type, temp_units=temperature_units, station_id=station_id)
         return jsonify({'status': 'success', 'message': 'Dates processed successfully'})
     except Exception as e:
         print(f"Error: {e}")
