@@ -63,7 +63,6 @@ def api_execute():
     
         current_weather = requests.get(URL_CURRENT_WEATHER, URL_HEADERS).json()
         weather_path = current_weather['data']
-        print(current_weather)
         with open("weather_data.json", "w") as file:
             timestamp_utc=weather_path['time']
             utc_dt = datetime.strptime(timestamp_utc, "%Y-%m-%dT%H:%M:%SZ")
@@ -90,6 +89,8 @@ def run_background():
 
 t= threading.Thread(target=run_background)
 t.start()
+
+api_execute()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
