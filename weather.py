@@ -17,13 +17,13 @@ from graphing import Grapher
 
 load_dotenv()
 URL_FORECAST = "https://api.tomorrow.io/v4/weather/forecast"
-URL_CURRENT_WEATHER = f"https://api.tomorrow.io/v4/weather/realtime?location=salt%20lake%20city&apikey={os.getenv('API_KEY')}"
+URL_CURRENT_WEATHER = f"https://api.tomorrow.io/v4/weather/realtime?location=40.760780%2C%20-111.891045&units=metric&apikey={os.getenv('API_KEY')}"
+URL_HEADERS = {"accept": "application/json"}
 URL_MAPS = 'https://api.tomorrow.io/v4/map/tile/'
 AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 header_map = {'accept': 'text/plain'}
 precip_params = ['cloudBase', 'cloudCeiling', 'visibility', 'precipitationIntensity', 'humidity', 'pressureSurfaceLevel']
 today = date.today()
-
 running=True
 
 def authentication(token):
@@ -61,8 +61,9 @@ def api_execute():
                 with open(f'static/img/air_q_maps/{param}.png','wb') as file:
                     file.write(map.content)
     
-        current_weather = requests.get(URL_CURRENT_WEATHER).json()
+        current_weather = requests.get(URL_CURRENT_WEATHER, URL_HEADERS).json()
         weather_path = current_weather['data']
+        print(current_weather)
         with open("weather_data.json", "w") as file:
             timestamp_utc=weather_path['time']
             utc_dt = datetime.strptime(timestamp_utc, "%Y-%m-%dT%H:%M:%SZ")
