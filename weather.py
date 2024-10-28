@@ -76,7 +76,7 @@ def api_execute():
         contents=f"Subject: Weather application API failure\n\nThe website failed to call the API"
         send_email(contents=contents, sender_email=os.getenv('ADMIN_EMAIL'))      
 
-schedule.every().hour.do(api_execute)
+schedule.every(2).hours.do(api_execute)
 
 def run_background():
     while running:
@@ -89,8 +89,6 @@ def run_background():
 
 t= threading.Thread(target=run_background)
 t.start()
-
-api_execute()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
