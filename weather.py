@@ -46,18 +46,21 @@ def api_execute():
     try:
         for param in precip_params:
             map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}")
+            time.sleep(2)
             with open(f'static/img/precipitation_maps/{param}.png', 'wb') as file:
                 file.write(map.content)
 
         temp_page_params = ['windSpeed', 'windDirection', 'windGust', 'dewPoint', 'temperature', 'temperatureApparent']
         for param in temp_page_params:
                 map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}", headers=header_map)
+                time.sleep(2)
                 with open(f'static/img/temp_wind_maps/{param}.png','wb') as file:
                     file.write(map.content)
 
         air_q_params = ['particulateMatter25', 'particulateMatter10', 'pollutantO3', 'pollutantNO2', 'pollutantCO', 'epaIndex']
         for param in air_q_params:
                 map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}", headers=header_map)
+                time.sleep(2)
                 with open(f'static/img/air_q_maps/{param}.png','wb') as file:
                     file.write(map.content)
     
@@ -76,7 +79,7 @@ def api_execute():
         contents=f"Subject: Weather application API failure\n\nThe website failed to call the API"
         send_email(contents=contents, sender_email=os.getenv('ADMIN_EMAIL'))      
 
-schedule.every(2).hours.do(api_execute)
+schedule.every().hour.do(api_execute)
 
 def run_background():
     while running:
