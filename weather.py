@@ -22,7 +22,7 @@ URL_HEADERS = {"accept": "application/json"}
 URL_MAPS = 'https://api.tomorrow.io/v4/map/tile/'
 AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 header_map = {'accept': 'text/plain'}
-precip_params = ['cloudBase', 'cloudCeiling', 'visibility', 'precipitationIntensity', 'humidity', 'pressureSurfaceLevel']
+
 today = date.today()
 running=True
 
@@ -45,6 +45,7 @@ def create_graph(start_date, end_date, data_type, temp_units, station_id):
 def api_execute():
     try:
         for param in precip_params:
+            precip_params = ['cloudBase', 'cloudCeiling', 'visibility', 'precipitationIntensity', 'humidity', 'pressureSurfaceLevel']
             map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}")
             time.sleep(2)
             with open(f'static/img/precipitation_maps/{param}.png', 'wb') as file:
@@ -248,5 +249,5 @@ def data():
     except Exception as e:
         return jsonify({'message': f'API Request failed due to error {e}'}), 400
 
-app.run(host="0.0.0.0")
+app.run(host="0.0.0.0", debug=True)
 

@@ -1,5 +1,5 @@
 Flask==2.2.5
-bootstrap-flask==2.3.3
+bootstrap-flask==2.4.1
 Flask-CKEditor==0.4.6
 Flask-Gravatar==0.5.0
 Flask-Login==0.6.2
@@ -19,8 +19,8 @@ WTForms==3.1.2
 schedule==1.2.0
 python-dotenv==1.0.1
 werkzeug==2.3.7
-email-validator==2.1.0.post1
 psycopg2==2.9.9
 pytz==2024.1
+email-validator==2.2.0
 pandas==2.2.2
 matplotlib==3.9.0
