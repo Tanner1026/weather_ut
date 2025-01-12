@@ -44,24 +44,24 @@ def create_graph(start_date, end_date, data_type, temp_units, station_id):
 
 def api_execute():
     try:
+        precip_params = ['cloudBase', 'cloudCeiling', 'visibility', 'precipitationIntensity', 'humidity', 'pressureSurfaceLevel']
         for param in precip_params:
-            precip_params = ['cloudBase', 'cloudCeiling', 'visibility', 'precipitationIntensity', 'humidity', 'pressureSurfaceLevel']
             map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}")
-            time.sleep(2)
+            time.sleep(5)
             with open(f'static/img/precipitation_maps/{param}.png', 'wb') as file:
                 file.write(map.content)
 
         temp_page_params = ['windSpeed', 'windDirection', 'windGust', 'dewPoint', 'temperature', 'temperatureApparent']
         for param in temp_page_params:
                 map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}", headers=header_map)
-                time.sleep(2)
+                time.sleep(5)
                 with open(f'static/img/temp_wind_maps/{param}.png','wb') as file:
                     file.write(map.content)
 
         air_q_params = ['particulateMatter25', 'particulateMatter10', 'pollutantO3', 'pollutantNO2', 'pollutantCO', 'epaIndex']
         for param in air_q_params:
                 map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}", headers=header_map)
-                time.sleep(2)
+                time.sleep(5)
                 with open(f'static/img/air_q_maps/{param}.png','wb') as file:
                     file.write(map.content)
     
@@ -76,8 +76,8 @@ def api_execute():
             mst_dt = utc_dt.astimezone(mst_zone)
             weather_path['time'] = mst_dt.strftime("%m/%d/%Y %I:%M %p")
             json.dump(weather_path, file)
-    except:
-        contents=f"Subject: Weather application API failure\n\nThe website failed to call the API"
+    except Exception as e:
+        contents=f"Subject: Weather application API failure\n\nThe website failed to call the API.  Error is {e}"
         send_email(contents=contents, sender_email=os.getenv('ADMIN_EMAIL'))      
 
 schedule.every().hour.do(api_execute)
@@ -249,5 +249,5 @@ def data():
     except Exception as e:
         return jsonify({'message': f'API Request failed due to error {e}'}), 400
 
-app.run(host="0.0.0.0", debug=True)
+app.run(host="0.0.0.0")
 
