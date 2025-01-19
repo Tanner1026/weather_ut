@@ -41,7 +41,7 @@ $(document).ready(function(){
               });
               $('#datepicker').show();
               $('#dateLabel').show()
-              $('dataSelector').show()
+              $('#dataSelector').show()
         } else {
             $('.input-daterange').datepicker('destroy')
             $('#datepicker').hide()
