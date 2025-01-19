@@ -57,13 +57,6 @@ def api_execute():
                 time.sleep(5)
                 with open(f'static/img/temp_wind_maps/{param}.png','wb') as file:
                     file.write(map.content)
-
-        air_q_params = ['particulateMatter25', 'particulateMatter10', 'pollutantO3', 'pollutantNO2', 'pollutantCO', 'epaIndex']
-        for param in air_q_params:
-                map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}", headers=header_map)
-                time.sleep(5)
-                with open(f'static/img/air_q_maps/{param}.png','wb') as file:
-                    file.write(map.content)
     
         current_weather = requests.get(URL_CURRENT_WEATHER, URL_HEADERS).json()
         weather_path = current_weather['data']
@@ -132,17 +125,6 @@ def precip():
                                    api_key = os.getenv('API_KEY'))
     except:
         return render_template('precipitation.html', success=False)
-    
-@app.route('/air_quality')
-def air_q():
-    try:
-        with open("weather_data.json", "r") as file:
-            weather = json.load(file)
-            time = weather['time']
-        success = True
-        return render_template('air_quality.html', success = success, time=time)
-    except:
-        return render_template("air_quality.html", success= success)
     
 @app.route('/weather-station')
 def weather_station():
@@ -249,5 +231,5 @@ def data():
     except Exception as e:
         return jsonify({'message': f'API Request failed due to error {e}'}), 400
 
-app.run(host="0.0.0.0")
+app.run(host="0.0.0.0", debug=True)
 

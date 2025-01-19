@@ -8,21 +8,21 @@
     <br>
     <h3 style="text-align: center; margin-bottom: 50px;">Please note that some days the station was down or had issues, so graphing data over long periods of time may result in strange looking graphs or gaps in data</h2>
     <div class="form-group">
-        <!-- <div>
+        <div>
             <select style='margin-bottom: 25px;'class="form-select" aria-label="Default select example" id="stationID">
-                <option selected>Select Station to Query</option>
+                <option value='none' selected>Select Station to Query</option>
                 <option value="1">Saratoga Springs</option>
                 <option value="2">Riverton</option>
             </select>
-        </div> -->
-        <label style="margin-bottom: 25px;" for="date-range" id="dateLabel">Choose a date range:</label>
-        <div class="input-daterange input-group" id="datepicker">
+        </div>
+        <label style="display: none; margin-bottom: 25px;" for="date-range" id="dateLabel">Choose a date range:</label>
+        <div style='display: none'class="input-daterange input-group" id="datepicker">
             <input style="margin-right: 25px" type="text" class="form-control" name="start" placeholder="Start Date" id="startDate" />
             <span class="input-group-addon">to</span>
             <input style="margin-left: 25px"type="text" class="form-control" name="end" placeholder="End Date" id="endDate" />
         </div>
         <div style="margin-top: 25px;"class="data-type-selector">
-            <select class="form-select" aria-label="Default select example" id="dataSelector">
+            <select style='display: none'class="form-select" aria-label="Default select example" id="dataSelector">
                 <option value='none'selected>Select Data Type to Display</option>
                 <option value="temperature">Temperature</option>
                 <option value="humidity">Humidity</option>
