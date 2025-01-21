@@ -70,22 +70,26 @@ def api_execute():
             weather_path['time'] = mst_dt.strftime("%m/%d/%Y %I:%M %p")
             json.dump(weather_path, file)
     except Exception as e:
-        contents=f"Subject: Weather application API failure\n\nThe website failed to call the API.  Error is {e}"
-        send_email(contents=contents, sender_email=os.getenv('ADMIN_EMAIL'))      
+        if e != 'data':
+            contents=f"Subject: Weather application API failure\n\nThe website failed to call the API.  Error is {e}"
+            send_email(contents=contents, sender_email=os.getenv('ADMIN_EMAIL'))  
+        else:
+            pass    
 
-schedule.every().hour.do(api_execute)
+# schedule.every().hour.do(api_execute)
 
-def run_background():
-    while running:
-        try:
-            schedule.run_pending()
-            time.sleep(5)
-        except Exception as e:
-            print(f"Error: {e}")
-            time.sleep(1)
+# def run_background():
+#     while running:
+#         try:
+#             schedule.run_pending()
+#             time.sleep(5)
+#         except Exception as e:
+#             print(f"Error: {e}")
+#             time.sleep(1)
 
-t= threading.Thread(target=run_background)
-t.start()
+# t= threading.Thread(target=run_background)
+# t.start()
+api_execute()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
@@ -231,5 +235,5 @@ def data():
     except Exception as e:
         return jsonify({'message': f'API Request failed due to error {e}'}), 400
 
-app.run(host="0.0.0.0", debug=True)
+app.run(host="0.0.0.0")
 
