@@ -50,16 +50,18 @@ def api_execute():
             time.sleep(5)
             with open(f'static/img/precipitation_maps/{param}.png', 'wb') as file:
                 file.write(map.content)
-
+        time.sleep(5)
         temp_page_params = ['windSpeed', 'windDirection', 'windGust', 'dewPoint', 'temperature', 'temperatureApparent']
         for param in temp_page_params:
                 map = requests.get(f"https://api.tomorrow.io/v4/map/tile/2/0/1/{param}/now.png?apikey={os.getenv('API_KEY')}", headers=header_map)
                 time.sleep(5)
                 with open(f'static/img/temp_wind_maps/{param}.png','wb') as file:
                     file.write(map.content)
-    
         current_weather = requests.get(URL_CURRENT_WEATHER, URL_HEADERS).json()
+        time.sleep(5)
+        print(current_weather)
         weather_path = current_weather['data']
+        print(weather_path)
         with open("weather_data.json", "w") as file:
             timestamp_utc=weather_path['time']
             utc_dt = datetime.strptime(timestamp_utc, "%Y-%m-%dT%H:%M:%SZ")
@@ -70,26 +72,23 @@ def api_execute():
             weather_path['time'] = mst_dt.strftime("%m/%d/%Y %I:%M %p")
             json.dump(weather_path, file)
     except Exception as e:
-        if e != 'data':
-            contents=f"Subject: Weather application API failure\n\nThe website failed to call the API.  Error is {e}"
-            send_email(contents=contents, sender_email=os.getenv('ADMIN_EMAIL'))  
-        else:
-            pass    
+        contents=f"Subject: Weather application API failure\n\nThe website failed to call the API.  Error is {e}"
+        send_email(contents=contents, sender_email=os.getenv('ADMIN_EMAIL'))  
+        print(e)  
 
-# schedule.every().hour.do(api_execute)
+schedule.every().hour.do(api_execute)
 
-# def run_background():
-#     while running:
-#         try:
-#             schedule.run_pending()
-#             time.sleep(5)
-#         except Exception as e:
-#             print(f"Error: {e}")
-#             time.sleep(1)
+def run_background():
+    while running:
+        try:
+            schedule.run_pending()
+            time.sleep(5)
+        except Exception as e:
+            print(f"Error: {e}")
+            time.sleep(1)
 
-# t= threading.Thread(target=run_background)
-# t.start()
-api_execute()
+t= threading.Thread(target=run_background)
+t.start()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
